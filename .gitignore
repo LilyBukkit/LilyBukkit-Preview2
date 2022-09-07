@@ -12,3 +12,9 @@ gradle-app.setting
 
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
+
+# RetroMCP
+bin/minecraft_server/net
+src/minecraft_server/net/minecraft/server/MinecraftServer.java
+src/minecraft_server/net/minecraft/src
+temp/src
