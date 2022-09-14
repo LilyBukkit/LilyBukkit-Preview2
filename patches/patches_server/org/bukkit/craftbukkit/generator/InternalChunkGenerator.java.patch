@@ -1,0 +1,11 @@
+--- /dev/null
++++ b/org/bukkit/craftbukkit/generator/InternalChunkGenerator.java
+@@ -1,0 +1,8 @@
++package org.bukkit.craftbukkit.generator;
++
++import net.minecraft.src.IChunkProvider;
++import org.bukkit.generator.ChunkGenerator;
++
++@Deprecated
++public abstract class InternalChunkGenerator extends ChunkGenerator implements IChunkProvider {
++}

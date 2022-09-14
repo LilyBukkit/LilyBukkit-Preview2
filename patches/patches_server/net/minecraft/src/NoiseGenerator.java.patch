@@ -1,0 +1,14 @@
+--- a/net/minecraft/src/NoiseGenerator.java
++++ /dev/null
+@@ -1,11 +1,0 @@
+-package net.minecraft.src;
+-
+-public class NoiseGenerator {
+-	public final String a;
+-	public final ICommandListener b;
+-
+-	public NoiseGenerator(String string1, ICommandListener iCommandListener2) {
+-		this.a = string1;
+-		this.b = iCommandListener2;
+-	}
+-}

@@ -139,7 +139,7 @@ public class LilyBukkit implements Server {
      */
     @Override
     public String getVersion() {
-        return "Alpha 2.0.0.0";
+        return "1.0.0.0";
     }
 
     /**
@@ -541,7 +541,6 @@ public class LilyBukkit implements Server {
         this.mc.ULPPOnlineMode = config.getBooleanProperty("online-mode", this.mc.ULPPOnlineMode);
         this.mc.configManager.maxPlayers = config.getIntProperty("max-players", this.mc.configManager.maxPlayers);
         this.mc.configManager.whitelistEnabled = config.getBooleanProperty("whitelist", this.mc.configManager.whitelistEnabled);
-        this.mc.configManager.enforceRosepad = config.getBooleanProperty("enforce-rosepad", this.mc.configManager.enforceRosepad);
 
         this.pluginMngr.clearPlugins();
         this.commandMap.clearCommands();

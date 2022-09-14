@@ -1,0 +1,20 @@
+--- a/net/minecraft/src/ServerConfigurationManager.java
++++ b/net/minecraft/src/ServerConfigurationManager.java
+@@ -17,13 +17,13 @@
+ 
+ public class ServerConfigurationManager {
+ 	public static Logger logger = Logger.getLogger("Minecraft");
+-	public List playerEntities = new ArrayList();
++	public List<EntityPlayerMP> playerEntities = new ArrayList<>();
+ 	private MinecraftServer mcServer;
+ 	private PlayerManager playerManagerObj;
+ 	private int maxPlayers;
+-	private Set bannedPlayers = new HashSet();
+-	private Set bannedIPs = new HashSet();
+-	private Set ops = new HashSet();
++	public Set<String> bannedPlayers = new HashSet<>();
++	public Set<String> bannedIPs = new HashSet<>();
++	public Set<String> ops = new HashSet<>();
+ 	private File bannedPlayersFile;
+ 	private File ipBanFile;
+ 	private File opFile;

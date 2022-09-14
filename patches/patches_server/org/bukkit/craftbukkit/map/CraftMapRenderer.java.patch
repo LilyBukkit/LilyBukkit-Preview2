@@ -1,0 +1,11 @@
+--- /dev/null
++++ b/org/bukkit/craftbukkit/map/CraftMapRenderer.java
+@@ -1,0 +1,8 @@
++package org.bukkit.craftbukkit.map;
++
++@Deprecated
++public class CraftMapRenderer /*extends MapRenderer*/ {
++    public CraftMapRenderer(CraftMapView mapView, Object /*WorldMap*/ worldMap){
++        throw new UnsupportedOperationException("One of the plugins attempted to call deprecated Map API");
++    }
++}

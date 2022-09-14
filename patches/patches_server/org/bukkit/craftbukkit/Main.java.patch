@@ -1,0 +1,10 @@
+--- /dev/null
++++ b/org/bukkit/craftbukkit/Main.java
+@@ -1,0 +1,7 @@
++package org.bukkit.craftbukkit;
++
++import ru.vladthemountain.lilybukkit.core.NewMain;
++
++@Deprecated
++public class Main extends NewMain {
++}

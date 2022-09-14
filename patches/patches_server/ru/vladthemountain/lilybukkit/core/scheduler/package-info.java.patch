@@ -1,0 +1,7 @@
+--- /dev/null
++++ b/ru/vladthemountain/lilybukkit/core/scheduler/package-info.java
+@@ -1,0 +1,4 @@
++/**
++ * @deprecated use {@link org.bukkit.craftbukkit.scheduler} instead
++ */
++package ru.vladthemountain.lilybukkit.core.scheduler;

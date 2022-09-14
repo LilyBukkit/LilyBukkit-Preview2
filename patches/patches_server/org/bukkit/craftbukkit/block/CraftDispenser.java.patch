@@ -1,0 +1,14 @@
+--- /dev/null
++++ b/org/bukkit/craftbukkit/block/CraftDispenser.java
+@@ -1,0 +1,11 @@
++package org.bukkit.craftbukkit.block;
++
++import org.bukkit.block.Block;
++
++@Deprecated
++public class CraftDispenser extends CraftBlockState {
++    public CraftDispenser(Block b) {
++        super(b);
++        throw new UnsupportedOperationException("One of the plugins called deprecated Block API");
++    }
++}
