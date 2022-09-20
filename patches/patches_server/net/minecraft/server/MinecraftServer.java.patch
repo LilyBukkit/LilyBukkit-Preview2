@@ -34,7 +34,7 @@
  import net.minecraft.src.ServerConfigurationManager;
  import net.minecraft.src.ServerGUI;
  import net.minecraft.src.ThreadCommandReader;
-@@ -33,442 +19,411 @@
+@@ -33,442 +19,410 @@
  import net.minecraft.src.Vec3D;
  import net.minecraft.src.WorldManager;
  import net.minecraft.src.WorldServer;
@@ -619,8 +619,7 @@
 +        this.worlds.add(world);
 +        this.configManager.setPlayerManager(this.worlds.toArray(new WorldServer[0]));
 +
-+        for (int i = 0; i < this.worlds.size(); i++) {
-+            WorldServer worldServer = this.worlds.get(i);
++        for (WorldServer worldServer : this.worlds) {
 +            logger.info("Preparing start region for level " + worldServer.levelName);
 +            // LilyBukkit end
 +            byte b2 = 10;

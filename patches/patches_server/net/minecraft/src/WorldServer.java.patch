@@ -1,0 +1,198 @@
+--- a/net/minecraft/src/WorldServer.java
++++ b/net/minecraft/src/WorldServer.java
+@@ -1,66 +1,134 @@
+ package net.minecraft.src;
+ 
++import org.bukkit.BlockChangeDelegate;
++import org.bukkit.craftbukkit.generator.CustomChunkGenerator;
++import org.bukkit.craftbukkit.generator.InternalChunkGenerator;
++import org.bukkit.craftbukkit.generator.NormalChunkGenerator;
++
+ import java.io.File;
+ 
+-public class WorldServer extends World {
+-	public ChunkProviderServer chunkProviderServer;
+-	public boolean disableSpawnProtection = false;
+-	public boolean levelSaving;
+-
+-	public WorldServer(File file1, String string2) {
+-		super(file1, string2);
+-	}
+-
+-	protected IChunkProvider getChunkProvider(File saveDir) {
+-		this.chunkProviderServer = new ChunkProviderServer(this, new ChunkLoader(saveDir, true), new ChunkProviderGenerate(this, this.randomSeed));
+-		return this.chunkProviderServer;
+-	}
+-
+-	public boolean setBlockAndMetadataWithNotify(int x, int y, int z, int i4, int i5) {
+-		if(!this.disableSpawnProtection) {
+-			int i6 = x - this.spawnX;
+-			int i7 = z - this.spawnZ;
+-			if(i6 < 0) {
+-				i6 = -i6;
+-			}
+-
+-			if(i7 < 0) {
+-				i7 = -i7;
+-			}
+-
+-			if(i6 > i7) {
+-				i7 = i6;
+-			}
+-
+-			if(i7 < 16) {
+-				return false;
+-			}
+-		}
+-
+-		return super.setBlockAndMetadataWithNotify(x, y, z, i4, i5);
+-	}
+-
+-	public boolean setBlockWithNotify(int x, int y, int z, int i4) {
+-		if(!this.disableSpawnProtection) {
+-			int i5 = x - this.spawnX;
+-			int i6 = z - this.spawnZ;
+-			if(i5 < 0) {
+-				i5 = -i5;
+-			}
+-
+-			if(i6 < 0) {
+-				i6 = -i6;
+-			}
+-
+-			if(i5 > i6) {
+-				i6 = i5;
+-			}
+-
+-			if(i6 < 16) {
+-				return false;
+-			}
+-		}
+-
+-		return super.setBlockWithNotify(x, y, z, i4);
+-	}
++public class WorldServer extends World implements BlockChangeDelegate { // LilyBukkit - added BlockChangedDelegate
++    public ChunkProviderServer chunkProviderServer;
++    public boolean disableSpawnProtection = false;
++    public boolean levelSaving;
++
++    public WorldServer(File file1, String string2) {
++        super(file1, string2);
++    }
++
++    protected IChunkProvider getChunkProvider(File saveDir) {
++        // LilyBukkit start
++        //this.chunkProviderServer = new ChunkProviderServer(this, new ChunkLoader(saveDir, true), new ChunkProviderGenerate(this, this.randomSeed));
++        IChunkLoader chunkLoader = new ChunkLoader(saveDir, true);
++
++        // CraftBukkit start
++        InternalChunkGenerator gen;
++        if (this.generator != null) gen = new CustomChunkGenerator(this, this.randomSeed, this.generator);
++        else gen = new NormalChunkGenerator(this, this.randomSeed);
++        this.chunkProviderServer = new ChunkProviderServer(this, chunkLoader, gen);
++        // CraftBukkit end
++        // LilyBukkit end
++
++        return this.chunkProviderServer;
++    }
++
++    public boolean setBlockAndMetadataWithNotify(int x, int y, int z, int i4, int i5) {
++        if (!this.disableSpawnProtection) {
++            int i6 = x - this.spawnX;
++            int i7 = z - this.spawnZ;
++            if (i6 < 0) {
++                i6 = -i6;
++            }
++
++            if (i7 < 0) {
++                i7 = -i7;
++            }
++
++            if (i6 > i7) {
++                i7 = i6;
++            }
++
++            if (i7 < 16) {
++                return false;
++            }
++        }
++
++        return super.setBlockAndMetadataWithNotify(x, y, z, i4, i5);
++    }
++
++    public boolean setBlockWithNotify(int x, int y, int z, int i4) {
++        if (!this.disableSpawnProtection) {
++            int i5 = x - this.spawnX;
++            int i6 = z - this.spawnZ;
++            if (i5 < 0) {
++                i5 = -i5;
++            }
++
++            if (i6 < 0) {
++                i6 = -i6;
++            }
++
++            if (i5 > i6) {
++                i6 = i5;
++            }
++
++            if (i6 < 16) {
++                return false;
++            }
++        }
++
++        return super.setBlockWithNotify(x, y, z, i4);
++    }
++
++    // LilyBukkit start
++    // CraftBukkit start
++    public EntityTracker entityTracker;
++    public PlayerManager manager;
++    // CraftBukkit end
++
++    //TODO: public boolean a(EntityHuman, int, int, int)
++
++    /**
++     * Set a block type at the specified coordinates.
++     *
++     * @param x      X coordinate
++     * @param y      Y coordinate
++     * @param z      Z coordinate
++     * @param typeId New block ID
++     * @return true if the block was set successfully
++     */
++    @Override
++    public boolean setRawTypeId(int x, int y, int z, int typeId) {
++        return this.setBlockWithNotify(x, y, z, typeId);
++    }
++
++    /**
++     * Set a block type and data at the specified coordinates.
++     *
++     * @param x      X coordinate
++     * @param y      Y coordinate
++     * @param z      Z coordinate
++     * @param typeId New block ID
++     * @param data   Block data
++     * @return true if the block was set successfully
++     */
++    @Override
++    public boolean setRawTypeIdAndData(int x, int y, int z, int typeId, int data) {
++        return this.setBlockAndMetadataWithNotify(x, y, z, typeId, data);
++    }
++
++    /**
++     * Get the block type at the location.
++     *
++     * @param x X coordinate
++     * @param y Y coordinate
++     * @param z Z coordinate
++     * @return The block ID
++     */
++    @Override
++    public int getTypeId(int x, int y, int z) {
++        return this.getBlockId(x, y, z);
++    }
++
++    // LilyBukkit end
+ }

@@ -15,6 +15,7 @@ gradle-app.setting
 
 # RetroMCP
 bin/minecraft_server/net
+craftbukkit
 src/minecraft_server/net/minecraft/server/MinecraftServer.java
 src/minecraft_server/net/minecraft/src
 temp/src

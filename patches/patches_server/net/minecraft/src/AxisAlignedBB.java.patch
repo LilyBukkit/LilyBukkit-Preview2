@@ -1,0 +1,48 @@
+--- a/net/minecraft/src/AxisAlignedBB.java
++++ b/net/minecraft/src/AxisAlignedBB.java
+@@ -4,7 +4,7 @@
+ import java.util.List;
+ 
+ public class AxisAlignedBB {
+-	private static List boundingBoxes = new ArrayList();
++	private static List<AxisAlignedBB> boundingBoxes = new ArrayList();
+ 	private static int numBoundingBoxesInUse = 0;
+ 	public double minX;
+ 	public double minY;
+@@ -26,7 +26,7 @@
+ 			boundingBoxes.add(getBoundingBox(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D));
+ 		}
+ 
+-		return ((AxisAlignedBB)boundingBoxes.get(numBoundingBoxesInUse++)).setBounds(minX, minY, minZ, maxX, maxY, maxZ);
++		return boundingBoxes.get(numBoundingBoxesInUse++).setBounds(minX, minY, minZ, maxX, maxY, maxZ);
+ 	}
+ 
+ 	private AxisAlignedBB(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+@@ -178,7 +178,7 @@
+ 	}
+ 
+ 	public boolean intersectsWith(AxisAlignedBB aabb) {
+-		return aabb.maxX > this.minX && aabb.minX < this.maxX ? (aabb.maxY > this.minY && aabb.minY < this.maxY ? aabb.maxZ > this.minZ && aabb.minZ < this.maxZ : false) : false;
++		return aabb.maxX > this.minX && aabb.minX < this.maxX && (aabb.maxY > this.minY && aabb.minY < this.maxY && aabb.maxZ > this.minZ && aabb.minZ < this.maxZ);
+ 	}
+ 
+ 	public AxisAlignedBB offset(double x, double y, double z) {
+@@ -318,15 +318,15 @@
+ 	}
+ 
+ 	private boolean isVecInYZ(Vec3D vector) {
+-		return vector == null ? false : vector.yCoord >= this.minY && vector.yCoord <= this.maxY && vector.zCoord >= this.minZ && vector.zCoord <= this.maxZ;
++		return vector != null && vector.yCoord >= this.minY && vector.yCoord <= this.maxY && vector.zCoord >= this.minZ && vector.zCoord <= this.maxZ;
+ 	}
+ 
+ 	private boolean isVecinXZ(Vec3D vector) {
+-		return vector == null ? false : vector.xCoord >= this.minX && vector.xCoord <= this.maxX && vector.zCoord >= this.minZ && vector.zCoord <= this.maxZ;
++		return vector != null && vector.xCoord >= this.minX && vector.xCoord <= this.maxX && vector.zCoord >= this.minZ && vector.zCoord <= this.maxZ;
+ 	}
+ 
+ 	private boolean isVecInXY(Vec3D vector) {
+-		return vector == null ? false : vector.xCoord >= this.minX && vector.xCoord <= this.maxX && vector.yCoord >= this.minY && vector.yCoord <= this.maxY;
++		return vector != null && vector.xCoord >= this.minX && vector.xCoord <= this.maxX && vector.yCoord >= this.minY && vector.yCoord <= this.maxY;
+ 	}
+ 
+ 	public void setBB(AxisAlignedBB aabb) {

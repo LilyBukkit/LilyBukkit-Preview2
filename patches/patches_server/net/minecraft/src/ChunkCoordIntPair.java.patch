@@ -1,0 +1,13 @@
+--- a/net/minecraft/src/ChunkCoordIntPair.java
++++ b/net/minecraft/src/ChunkCoordIntPair.java
+@@ -19,8 +19,8 @@
+ 	}
+ 
+ 	public double a(Entity entity) {
+-		double d2 = (double)(this.chunkXPos * 16 + 8);
+-		double d4 = (double)(this.chunkZPos * 16 + 8);
++		double d2 = this.chunkXPos * 16 + 8;
++		double d4 = this.chunkZPos * 16 + 8;
+ 		double d6 = d2 - entity.posX;
+ 		double d8 = d4 - entity.posZ;
+ 		return d6 * d6 + d8 * d8;
