@@ -13,3 +13,12 @@
  	}
  
  	public void updateConnectedLeaves(World world, int x, int y, int z, int i5) {
+@@ -89,7 +89,7 @@
+ 	}
+ 
+ 	private void removeLeaves(World world, int x, int y, int z) {
+-		this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z));
++		this.dropNaturally(world, x, y, z, world.getBlockMetadata(x, y, z));
+ 		world.setBlockWithNotify(x, y, z, 0);
+ 	}
+ 

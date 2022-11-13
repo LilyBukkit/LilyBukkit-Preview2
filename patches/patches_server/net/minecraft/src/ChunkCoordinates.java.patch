@@ -1,0 +1,10 @@
+--- a/net/minecraft/src/ChunkCoordinates.java
++++ b/net/minecraft/src/ChunkCoordinates.java
+@@ -1,6 +1,6 @@
+ package net.minecraft.src;
+ 
+-final class ChunkCoordinates {
++public final class ChunkCoordinates {
+ 	public final int posX;
+ 	public final int posZ;
+ 

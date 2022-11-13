@@ -1,14 +1,16 @@
 --- a/net/minecraft/src/BlockTNT.java
 +++ b/net/minecraft/src/BlockTNT.java
-@@ -11,7 +11,7 @@
+@@ -11,8 +11,8 @@
  		return i1 == 0 ? this.blockIndexInTexture + 2 : (i1 == 1 ? this.blockIndexInTexture + 1 : this.blockIndexInTexture);
  	}
  
 -	public void onNeighborBlockChange(World world, int x, int y, int z, int flag) {
+-		if(flag > 0 && Block.canBlockGrass[flag].canProvidePower() && world.isBlockIndirectlyGettingPowered(x, y, z)) {
 +	public void doPhysics(World world, int x, int y, int z, int flag) {
- 		if(flag > 0 && Block.canBlockGrass[flag].canProvidePower() && world.isBlockIndirectlyGettingPowered(x, y, z)) {
++		if(flag > 0 && Block.blockList[flag].canProvidePower() && world.isBlockIndirectlyGettingPowered(x, y, z)) {
  			this.onBlockDestroyedByPlayer(world, x, y, z, 0);
  			world.setBlockWithNotify(x, y, z, 0);
+ 		}
 @@ -26,12 +26,12 @@
  	public void onBlockDestroyedByExplosion(World world1, int i2, int i3, int i4) {
  		EntityTNTPrimed entityTNTPrimed5 = new EntityTNTPrimed(world1, (float)i2 + 0.5F, (float)i3 + 0.5F, (float)i4 + 0.5F);

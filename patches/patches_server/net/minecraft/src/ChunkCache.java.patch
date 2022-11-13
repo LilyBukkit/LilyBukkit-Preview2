@@ -1,0 +1,16 @@
+--- a/net/minecraft/src/ChunkCache.java
++++ b/net/minecraft/src/ChunkCache.java
+@@ -48,11 +48,11 @@
+ 
+ 	public Material getBlockMaterial(int i1, int i2, int i3) {
+ 		int i4 = this.getBlockId(i1, i2, i3);
+-		return i4 == 0 ? Material.air : Block.canBlockGrass[i4].material;
++		return i4 == 0 ? Material.air : Block.blockList[i4].material;
+ 	}
+ 
+ 	public boolean isBlockNormalCube(int i1, int i2, int i3) {
+-		Block block4 = Block.canBlockGrass[this.getBlockId(i1, i2, i3)];
++		Block block4 = Block.blockList[this.getBlockId(i1, i2, i3)];
+ 		return block4 == null ? false : block4.isOpaqueCube();
+ 	}
+ }

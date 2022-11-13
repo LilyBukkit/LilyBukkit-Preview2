@@ -1,6 +1,6 @@
 --- a/net/minecraft/src/BlockPressurePlate.java
 +++ b/net/minecraft/src/BlockPressurePlate.java
-@@ -33,7 +33,7 @@
+@@ -33,14 +33,14 @@
  	public void onBlockAdded(World world1, int i2, int i3, int i4) {
  	}
  
@@ -9,6 +9,14 @@
  		boolean z6 = false;
  		if(!world.isBlockNormalCube(x, y - 1, z)) {
  			z6 = true;
+ 		}
+ 
+ 		if(z6) {
+-			this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z));
++			this.dropNaturally(world, x, y, z, world.getBlockMetadata(x, y, z));
+ 			world.setBlockWithNotify(x, y, z, 0);
+ 		}
+ 
 @@ -81,16 +81,16 @@
  
  		if(z6 && !z5) {

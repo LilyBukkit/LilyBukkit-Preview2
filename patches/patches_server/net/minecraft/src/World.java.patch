@@ -1,6 +1,6 @@
 --- a/net/minecraft/src/World.java
 +++ b/net/minecraft/src/World.java
-@@ -1,1660 +1,1839 @@
+@@ -1,1660 +1,1843 @@
  package net.minecraft.src;
  
 +import org.bukkit.Bukkit;
@@ -2031,7 +2031,7 @@
 +
 +    public Material getBlockMaterial(int x, int y, int z) {
 +        int i4 = this.getBlockId(x, y, z);
-+        return i4 == 0 ? Material.air : Block.canBlockGrass[i4].material;
++        return i4 == 0 ? Material.air : Block.blockList[i4].material;
 +    }
 +
 +    public int getBlockMetadata(int x, int y, int z) {
@@ -2133,7 +2133,7 @@
 +
 +    private void notifyBlockOfNeighborChange(int x, int y, int z, int id) {
 +        if (!this.editingBlocks && !this.multiplayerWorld) {
-+            Block block = Block.canBlockGrass[this.getBlockId(x, y, z)];
++            Block block = Block.blockList[this.getBlockId(x, y, z)];
 +            if (block != null) {
 +                // CraftBukkit start
 +                LBWorld world = this.getWorld();
@@ -2429,7 +2429,7 @@
 +
 +                    int i31 = this.getBlockId(i7, i8, i9);
 +                    int i32 = this.getBlockMetadata(i7, i8, i9);
-+                    Block block33 = Block.canBlockGrass[i31];
++                    Block block33 = Block.blockList[i31];
 +                    if (i31 > 0 && block33.canCollideCheck(i32, z3)) {
 +                        MovingObjectPosition movingObjectPosition34 = block33.collisionRayTrace(this, i7, i8, i9, vector1, vector2);
 +                        if (movingObjectPosition34 != null) {
@@ -2557,7 +2557,7 @@
 +            for (int i10 = i7; i10 < i8; ++i10) {
 +                if (this.blockExists(i9, 64, i10)) {
 +                    for (int i11 = i5 - 1; i11 < i6; ++i11) {
-+                        Block block12 = Block.canBlockGrass[this.getBlockId(i9, i11, i10)];
++                        Block block12 = Block.blockList[this.getBlockId(i9, i11, i10)];
 +                        if (block12 != null) {
 +                            block12.getCollidingBoundingBoxes(this, i9, i11, i10, aabb, this.collidingBoundingBoxes);
 +                        }
@@ -2622,7 +2622,7 @@
 +
 +        for (z &= 15; i4 > 0; --i4) {
 +            int i5 = chunk3.getBlockID(x, i4, z);
-+            if (i5 != 0 && (Block.canBlockGrass[i5].material.getIsSolid() || Block.canBlockGrass[i5].material.getIsLiquid())) {
++            if (i5 != 0 && (Block.blockList[i5].material.getIsSolid() || Block.blockList[i5].material.getIsLiquid())) {
 +                return i4 + 1;
 +            }
 +        }
@@ -2635,7 +2635,7 @@
 +        byte b6 = 8;
 +        if (this.checkChunksExist(i1 - b6, i2 - b6, i3 - b6, i1 + b6, i2 + b6, i3 + b6)) {
 +            if (i4 > 0) {
-+                nextTickListEntry5.setScheduledTime((long) Block.canBlockGrass[i4].tickRate() + this.worldTime);
++                nextTickListEntry5.setScheduledTime((long) Block.blockList[i4].tickRate() + this.worldTime);
 +            }
 +
 +            if (!this.scheduledTickSet.contains(nextTickListEntry5)) {
@@ -2814,7 +2814,7 @@
 +        for (int i8 = i2; i8 < i3; ++i8) {
 +            for (int i9 = i4; i9 < i5; ++i9) {
 +                for (int i10 = i6; i10 < i7; ++i10) {
-+                    Block block11 = Block.canBlockGrass[this.getBlockId(i8, i9, i10)];
++                    Block block11 = Block.blockList[this.getBlockId(i8, i9, i10)];
 +                    if (block11 != null && block11.material.getIsLiquid()) {
 +                        return true;
 +                    }
@@ -2860,7 +2860,7 @@
 +        for (int i12 = i4; i12 < i5; ++i12) {
 +            for (int i13 = i6; i13 < i7; ++i13) {
 +                for (int i14 = i8; i14 < i9; ++i14) {
-+                    Block block15 = Block.canBlockGrass[this.getBlockId(i12, i13, i14)];
++                    Block block15 = Block.blockList[this.getBlockId(i12, i13, i14)];
 +                    if (block15 != null && block15.material == material) {
 +                        double d16 = (float) (i13 + 1) - BlockFluid.getFluidHeightPercent(this.getBlockMetadata(i12, i13, i14));
 +                        if ((double) i7 >= d16) {
@@ -2894,7 +2894,7 @@
 +        for (int i9 = i3; i9 < i4; ++i9) {
 +            for (int i10 = i5; i10 < i6; ++i10) {
 +                for (int i11 = i7; i11 < i8; ++i11) {
-+                    Block block12 = Block.canBlockGrass[this.getBlockId(i9, i10, i11)];
++                    Block block12 = Block.blockList[this.getBlockId(i9, i10, i11)];
 +                    if (block12 != null && block12.material == material) {
 +                        return true;
 +                    }
@@ -2916,7 +2916,7 @@
 +        for (int i9 = i3; i9 < i4; ++i9) {
 +            for (int i10 = i5; i10 < i6; ++i10) {
 +                for (int i11 = i7; i11 < i8; ++i11) {
-+                    Block block12 = Block.canBlockGrass[this.getBlockId(i9, i10, i11)];
++                    Block block12 = Block.blockList[this.getBlockId(i9, i10, i11)];
 +                    if (block12 != null && block12.material == material) {
 +                        int i13 = this.getBlockMetadata(i9, i10, i11);
 +                        double d14 = i10 + 1;
@@ -2989,7 +2989,7 @@
 +    }
 +
 +    public boolean isBlockNormalCube(int i1, int i2, int i3) {
-+        Block block4 = Block.canBlockGrass[this.getBlockId(i1, i2, i3)];
++        Block block4 = Block.blockList[this.getBlockId(i1, i2, i3)];
 +        return block4 != null && block4.isOpaqueCube();
 +    }
 +
@@ -3125,7 +3125,7 @@
 +                i9 = this.getTopSolidOrLiquidBlock(i7 + i3, i8 + i4);
 +                if (i9 >= 0 && i9 < 128 && chunk14.getSavedLightValue(EnumSkyBlock.Block, i7, i9, i8) < 10) {
 +                    i10 = chunk14.getBlockID(i7, i9 - 1, i8);
-+                    if (chunk14.getBlockID(i7, i9, i8) == 0 && i10 != 0 && i10 != Block.ice.blockID && Block.canBlockGrass[i10].material.getIsSolid()) {
++                    if (chunk14.getBlockID(i7, i9, i8) == 0 && i10 != 0 && i10 != Block.ice.blockID && Block.blockList[i10].material.getIsSolid()) {
 +                        // CraftBukkit start
 +                        BlockState blockState = this.getWorld().getBlockAt(i7 + i3, i9, i8 + i4).getState();
 +                        blockState.setTypeId(Block.snow.blockID);
@@ -3163,7 +3163,7 @@
 +                i10 = i7 >> 16 & 127;
 +                byte b15 = chunk14.blocks[i8 << 11 | i9 << 7 | i10];
 +                if (Block.tickOnLoad[b15]) {
-+                    Block.canBlockGrass[b15].updateTick(this, i8 + i3, i10, i9 + i4, this.rand);
++                    Block.blockList[b15].updateTick(this, i8 + i3, i10, i9 + i4, this.rand);
 +                }
 +            }
 +        }
@@ -3191,7 +3191,7 @@
 +                if (this.checkChunksExist(nextTickListEntry4.xCoord - b5, nextTickListEntry4.yCoord - b5, nextTickListEntry4.zCoord - b5, nextTickListEntry4.xCoord + b5, nextTickListEntry4.yCoord + b5, nextTickListEntry4.zCoord + b5)) {
 +                    int i6 = this.getBlockId(nextTickListEntry4.xCoord, nextTickListEntry4.yCoord, nextTickListEntry4.zCoord);
 +                    if (i6 == nextTickListEntry4.blockID && i6 > 0) {
-+                        Block.canBlockGrass[i6].updateTick(this, nextTickListEntry4.xCoord, nextTickListEntry4.yCoord, nextTickListEntry4.zCoord, this.rand);
++                        Block.blockList[i6].updateTick(this, nextTickListEntry4.xCoord, nextTickListEntry4.yCoord, nextTickListEntry4.zCoord, this.rand);
 +                    }
 +                }
 +            }
@@ -3258,8 +3258,8 @@
 +
 +    public boolean canBlockBePlacedAt(int blockID, int x, int y, int z, boolean z5) {
 +        int i6 = this.getBlockId(x, y, z);
-+        Block block = Block.canBlockGrass[i6];
-+        Block block1 = Block.canBlockGrass[blockID];
++        Block block = Block.blockList[i6];
++        Block block1 = Block.blockList[blockID];
 +        AxisAlignedBB axisAlignedBB = block1.getCollisionBoundingBoxFromPool(this, x, y, z);
 +        if (z5) {
 +            axisAlignedBB = null;
@@ -3321,7 +3321,7 @@
 +
 +    public boolean isBlockProvidingPowerTo(int x, int y, int z, int i4) {
 +        int i5 = this.getBlockId(x, y, z);
-+        return i5 != 0 && Block.canBlockGrass[i5].isIndirectlyPoweringTo(this, x, y, z, i4);
++        return i5 != 0 && Block.blockList[i5].isIndirectlyPoweringTo(this, x, y, z, i4);
 +    }
 +
 +    public boolean isBlockGettingPowered(int i1, int i2, int i3) {
@@ -3333,7 +3333,7 @@
 +            return this.isBlockGettingPowered(x, y, z);
 +        } else {
 +            int i5 = this.getBlockId(x, y, z);
-+            return i5 != 0 && Block.canBlockGrass[i5].isPoweringTo(this, x, y, z, i4);
++            return i5 != 0 && Block.blockList[i5].isPoweringTo(this, x, y, z, i4);
 +        }
 +    }
 +
@@ -3483,5 +3483,9 @@
 +
 +    // CraftBukkit end
 +    private final LBWorld world;
++
++    public ChunkCoordinates getSpawn() {
++        return new ChunkCoordinates(this.spawnX, this.spawnZ);
++    }
 +    // LilyBukkit end
  }

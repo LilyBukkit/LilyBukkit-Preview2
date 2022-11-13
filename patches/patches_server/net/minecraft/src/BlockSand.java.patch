@@ -18,3 +18,12 @@
  			}
  		}
  
+@@ -46,7 +46,7 @@
+ 		} else if(i4 == Block.fire.blockID) {
+ 			return true;
+ 		} else {
+-			Material material5 = Block.canBlockGrass[i4].material;
++			Material material5 = Block.blockList[i4].material;
+ 			return material5 == Material.water ? true : material5 == Material.lava;
+ 		}
+ 	}

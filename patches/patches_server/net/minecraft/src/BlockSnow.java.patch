@@ -1,6 +1,6 @@
 --- a/net/minecraft/src/BlockSnow.java
 +++ b/net/minecraft/src/BlockSnow.java
-@@ -21,7 +21,7 @@
+@@ -21,13 +21,13 @@
  		return world1.getBlockMaterial(i2, i3 - 1, i4).getIsSolid();
  	}
  
@@ -8,4 +8,20 @@
 +	public void doPhysics(World world, int x, int y, int z, int flag) {
  		this.canSnowStay(world, x, y, z);
  	}
+ 
+ 	private boolean canSnowStay(World world, int x, int y, int z) {
+ 		if(!this.canPlaceBlockAt(world, x, y, z)) {
+-			this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z));
++			this.dropNaturally(world, x, y, z, world.getBlockMetadata(x, y, z));
+ 			world.setBlockWithNotify(x, y, z, 0);
+ 			return false;
+ 		} else {
+@@ -45,7 +45,7 @@
+ 
+ 	public void updateTick(World world1, int i2, int i3, int i4, Random random5) {
+ 		if(world1.getSavedLightValue(EnumSkyBlock.Block, i2, i3, i4) > 11) {
+-			this.dropBlockAsItem(world1, i2, i3, i4, world1.getBlockMetadata(i2, i3, i4));
++			this.dropNaturally(world1, i2, i3, i4, world1.getBlockMetadata(i2, i3, i4));
+ 			world1.setBlockWithNotify(i2, i3, i4, 0);
+ 		}
  

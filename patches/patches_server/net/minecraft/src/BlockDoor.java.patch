@@ -1,6 +1,6 @@
 --- a/net/minecraft/src/BlockDoor.java
 +++ b/net/minecraft/src/BlockDoor.java
-@@ -112,7 +112,7 @@
+@@ -112,15 +112,15 @@
  		}
  	}
  
@@ -9,12 +9,24 @@
  		int i6 = world.getBlockMetadata(x, y, z);
  		if((i6 & 8) != 0) {
  			if(world.getBlockId(x, y - 1, z) != this.blockID) {
-@@ -120,7 +120,7 @@
+ 				world.setBlockWithNotify(x, y, z, 0);
  			}
  
- 			if(flag > 0 && Block.canBlockGrass[flag].canProvidePower()) {
+-			if(flag > 0 && Block.canBlockGrass[flag].canProvidePower()) {
 -				this.onNeighborBlockChange(world, x, y - 1, z, flag);
++			if(flag > 0 && Block.blockList[flag].canProvidePower()) {
 +				this.doPhysics(world, x, y - 1, z, flag);
  			}
  		} else {
  			boolean z7 = false;
+@@ -138,8 +138,8 @@
+ 			}
+ 
+ 			if(z7) {
+-				this.dropBlockAsItem(world, x, y, z, i6);
+-			} else if(flag > 0 && Block.canBlockGrass[flag].canProvidePower()) {
++				this.dropNaturally(world, x, y, z, i6);
++			} else if(flag > 0 && Block.blockList[flag].canProvidePower()) {
+ 				boolean z8 = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y + 1, z);
+ 				this.onPoweredBlockChange(world, x, y, z, z8);
+ 			}

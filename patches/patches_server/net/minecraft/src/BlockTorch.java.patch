@@ -9,3 +9,21 @@
  		if(this.checkIfAttachedToBlock(world, x, y, z)) {
  			int i6 = world.getBlockMetadata(x, y, z);
  			boolean z7 = false;
+@@ -98,7 +98,7 @@
+ 			}
+ 
+ 			if(z7) {
+-				this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z));
++				this.dropNaturally(world, x, y, z, world.getBlockMetadata(x, y, z));
+ 				world.setBlockWithNotify(x, y, z, 0);
+ 			}
+ 		}
+@@ -107,7 +107,7 @@
+ 
+ 	private boolean checkIfAttachedToBlock(World world, int x, int y, int z) {
+ 		if(!this.canPlaceBlockAt(world, x, y, z)) {
+-			this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z));
++			this.dropNaturally(world, x, y, z, world.getBlockMetadata(x, y, z));
+ 			world.setBlockWithNotify(x, y, z, 0);
+ 			return false;
+ 		} else {

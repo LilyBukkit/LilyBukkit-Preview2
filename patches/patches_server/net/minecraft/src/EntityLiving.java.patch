@@ -1,5 +1,32 @@
 --- a/net/minecraft/src/EntityLiving.java
 +++ b/net/minecraft/src/EntityLiving.java
+@@ -374,7 +374,7 @@
+ 			this.attackEntityFrom((Entity)null, i2);
+ 			int i3 = this.worldObj.getBlockId(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY - (double)0.2F - (double)this.yOffset), MathHelper.floor_double(this.posZ));
+ 			if(i3 > 0) {
+-				StepSound stepSound4 = Block.canBlockGrass[i3].stepSound;
++				StepSound stepSound4 = Block.blockList[i3].stepSound;
+ 				this.worldObj.playSoundAtEntity(this, stepSound4.getStepSound(), stepSound4.getVolume() * 0.5F, stepSound4.getPitch() * 0.75F);
+ 			}
+ 		}
+@@ -411,7 +411,7 @@
+ 				f8 = 0.54600006F;
+ 				int i4 = this.worldObj.getBlockId(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.boundingBox.minY) - 1, MathHelper.floor_double(this.posZ));
+ 				if(i4 > 0) {
+-					f8 = Block.canBlockGrass[i4].slipperiness * 0.91F;
++					f8 = Block.blockList[i4].slipperiness * 0.91F;
+ 				}
+ 			}
+ 
+@@ -422,7 +422,7 @@
+ 				f8 = 0.54600006F;
+ 				int i5 = this.worldObj.getBlockId(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.boundingBox.minY) - 1, MathHelper.floor_double(this.posZ));
+ 				if(i5 > 0) {
+-					f8 = Block.canBlockGrass[i5].slipperiness * 0.91F;
++					f8 = Block.blockList[i5].slipperiness * 0.91F;
+ 				}
+ 			}
+ 
 @@ -625,7 +625,7 @@
  	}
  

@@ -1,6 +1,6 @@
 --- a/net/minecraft/src/BlockReed.java
 +++ b/net/minecraft/src/BlockReed.java
-@@ -35,7 +35,7 @@
+@@ -35,13 +35,13 @@
  		return i5 == this.blockID ? true : (i5 != Block.grass.blockID && i5 != Block.dirt.blockID ? false : (world1.getBlockMaterial(i2 - 1, i3 - 1, i4) == Material.water ? true : (world1.getBlockMaterial(i2 + 1, i3 - 1, i4) == Material.water ? true : (world1.getBlockMaterial(i2, i3 - 1, i4 - 1) == Material.water ? true : world1.getBlockMaterial(i2, i3 - 1, i4 + 1) == Material.water))));
  	}
  
@@ -8,4 +8,11 @@
 +	public void doPhysics(World world, int x, int y, int z, int flag) {
  		this.fallInstantly(world, x, y, z);
  	}
+ 
+ 	protected final void fallInstantly(World world, int x, int y, int z) {
+ 		if(!this.canBlockStay(world, x, y, z)) {
+-			this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z));
++			this.dropNaturally(world, x, y, z, world.getBlockMetadata(x, y, z));
+ 			world.setBlockWithNotify(x, y, z, 0);
+ 		}
  

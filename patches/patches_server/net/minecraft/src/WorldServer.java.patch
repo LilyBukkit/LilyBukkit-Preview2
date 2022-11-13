@@ -1,6 +1,6 @@
 --- a/net/minecraft/src/WorldServer.java
 +++ b/net/minecraft/src/WorldServer.java
-@@ -1,66 +1,136 @@
+@@ -1,66 +1,135 @@
  package net.minecraft.src;
  
 +import org.bukkit.BlockChangeDelegate;
@@ -195,6 +195,5 @@
 +    public int getTypeId(int x, int y, int z) {
 +        return this.getBlockId(x, y, z);
 +    }
-+
 +    // LilyBukkit end
  }

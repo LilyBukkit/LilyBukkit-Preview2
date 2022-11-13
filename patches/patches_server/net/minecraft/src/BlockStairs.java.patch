@@ -18,6 +18,15 @@
  	}
  
  	private void g(World world, int x, int y, int z) {
+@@ -139,7 +139,7 @@
+ 
+ 	private boolean isBlockStair(World world, int x, int y, int z) {
+ 		int i5 = world.getBlockId(x, y, z);
+-		return i5 == 0 ? false : Block.canBlockGrass[i5].getRenderType() == 10;
++		return i5 == 0 ? false : Block.blockList[i5].getRenderType() == 10;
+ 	}
+ 
+ 	public void onBlockClicked(World world1, int i2, int i3, int i4, EntityPlayer entityPlayer5) {
 @@ -187,7 +187,7 @@
  	}
  
@@ -27,3 +36,14 @@
  		this.modelBlock.onBlockAdded(world1, i2, i3, i4);
  	}
  
+@@ -199,8 +199,8 @@
+ 		this.modelBlock.dropBlockAsItemWithChance(world, x, y, z, i5, f6);
+ 	}
+ 
+-	public void dropBlockAsItem(World world1, int i2, int i3, int i4, int i5) {
+-		this.modelBlock.dropBlockAsItem(world1, i2, i3, i4, i5);
++	public void dropNaturally(World world1, int i2, int i3, int i4, int i5) {
++		this.modelBlock.dropNaturally(world1, i2, i3, i4, i5);
+ 	}
+ 
+ 	public void onEntityWalking(World world1, int i2, int i3, int i4, Entity entity5) {

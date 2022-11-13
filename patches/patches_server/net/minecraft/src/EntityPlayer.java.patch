@@ -1,5 +1,14 @@
 --- a/net/minecraft/src/EntityPlayer.java
 +++ b/net/minecraft/src/EntityPlayer.java
+@@ -113,7 +113,7 @@
+ 	public void dropPlayerItemWithRandomChoice(ItemStack stack, boolean z2) {
+ 		if(stack != null) {
+ 			EntityItem entityItem3 = new EntityItem(this.worldObj, this.posX, this.posY - (double)0.3F + (double)this.getEyeHeight(), this.posZ, stack);
+-			entityItem3.delayBeforeCanPickup = 40;
++			entityItem3.pickupDelay = 40;
+ 			float f4 = 0.1F;
+ 			float f5;
+ 			if(z2) {
 @@ -140,7 +140,7 @@
  	}
  

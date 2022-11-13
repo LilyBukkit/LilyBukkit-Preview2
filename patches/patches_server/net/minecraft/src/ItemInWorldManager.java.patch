@@ -1,0 +1,44 @@
+--- a/net/minecraft/src/ItemInWorldManager.java
++++ b/net/minecraft/src/ItemInWorldManager.java
+@@ -18,10 +18,10 @@
+ 	public void onBlockClicked(int i1, int i2, int i3) {
+ 		int i4 = this.worldObj.getBlockId(i1, i2, i3);
+ 		if(i4 > 0 && this.removeProgress == 0.0F) {
+-			Block.canBlockGrass[i4].onBlockClicked(this.worldObj, i1, i2, i3, this.thisPlayer);
++			Block.blockList[i4].onBlockClicked(this.worldObj, i1, i2, i3, this.thisPlayer);
+ 		}
+ 
+-		if(i4 > 0 && Block.canBlockGrass[i4].blockStrength(this.thisPlayer) >= 1.0F) {
++		if(i4 > 0 && Block.blockList[i4].blockStrength(this.thisPlayer) >= 1.0F) {
+ 			this.tryHarvestBlock(i1, i2, i3);
+ 		}
+ 
+@@ -42,7 +42,7 @@
+ 					return;
+ 				}
+ 
+-				Block block6 = Block.canBlockGrass[i5];
++				Block block6 = Block.blockList[i5];
+ 				this.removeProgress += block6.blockStrength(this.thisPlayer);
+ 				++this.curblockDamage;
+ 				if(this.removeProgress >= 1.0F) {
+@@ -65,7 +65,7 @@
+ 	}
+ 
+ 	public boolean removeBlock(int i1, int i2, int i3) {
+-		Block block4 = Block.canBlockGrass[this.worldObj.getBlockId(i1, i2, i3)];
++		Block block4 = Block.blockList[this.worldObj.getBlockId(i1, i2, i3)];
+ 		int i5 = this.worldObj.getBlockMetadata(i1, i2, i3);
+ 		boolean z6 = this.worldObj.setBlockWithNotify(i1, i2, i3, 0);
+ 		if(block4 != null && z6) {
+@@ -88,8 +88,8 @@
+ 			}
+ 		}
+ 
+-		if(z6 && this.thisPlayer.canHarvestBlock(Block.canBlockGrass[i4])) {
+-			Block.canBlockGrass[i4].dropBlockAsItem(this.worldObj, i1, i2, i3, i5);
++		if(z6 && this.thisPlayer.canHarvestBlock(Block.blockList[i4])) {
++			Block.blockList[i4].dropNaturally(this.worldObj, i1, i2, i3, i5);
+ 		}
+ 
+ 		return z6;

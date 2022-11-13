@@ -1,11 +1,14 @@
 --- a/net/minecraft/src/BlockCactus.java
 +++ b/net/minecraft/src/BlockCactus.java
-@@ -48,7 +48,7 @@
+@@ -48,9 +48,9 @@
  		return !super.canPlaceBlockAt(world1, i2, i3, i4) ? false : this.canBlockStay(world1, i2, i3, i4);
  	}
  
 -	public void onNeighborBlockChange(World world, int x, int y, int z, int flag) {
 +	public void doPhysics(World world, int x, int y, int z, int flag) {
  		if(!this.canBlockStay(world, x, y, z)) {
- 			this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z));
+-			this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z));
++			this.dropNaturally(world, x, y, z, world.getBlockMetadata(x, y, z));
  			world.setBlockWithNotify(x, y, z, 0);
+ 		}
+ 

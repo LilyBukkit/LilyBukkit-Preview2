@@ -1,14 +1,15 @@
 package org.bukkit.craftbukkit.event;
 
+import net.minecraft.src.ChunkCoordinates;
 import net.minecraft.src.EntityChicken;
 import net.minecraft.src.EntityCow;
 import net.minecraft.src.EntityCreeper;
 import net.minecraft.src.EntityGiantZombie;
 import net.minecraft.src.EntityItem;
 import net.minecraft.src.EntityLiving;
-import net.minecraft.src.EntityMob;
+import net.minecraft.src.EntityMobs;
 import net.minecraft.src.EntityPig;
-import net.minecraft.src.EntityPlayerMP;
+import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntitySheep;
 import net.minecraft.src.EntitySkeleton;
 import net.minecraft.src.EntitySlime;
@@ -18,14 +19,12 @@ import net.minecraft.src.Item;
 import net.minecraft.src.World;
 import net.minecraft.src.WorldServer;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.CreatureType;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event.Type;
 import org.bukkit.event.block.Action;
@@ -43,8 +42,6 @@ import org.bukkit.inventory.ItemStack;
 import ru.vladthemountain.lilybukkit.core.LBWorld;
 import ru.vladthemountain.lilybukkit.core.LilyBukkit;
 import ru.vladthemountain.lilybukkit.core.block.LBBlock;
-import ru.vladthemountain.lilybukkit.core.entity.LBEntity;
-import ru.vladthemountain.lilybukkit.core.entity.LBLivingEntity;
 
 /**
  * CraftEventFactory used by CraftBukkit.
@@ -52,27 +49,30 @@ import ru.vladthemountain.lilybukkit.core.entity.LBLivingEntity;
  */
 public class CraftEventFactory {
     private static boolean canBuild(LBWorld world, Player player, int x, int z) {
+        WorldServer worldServer = world.getHandle();
         int spawnSize = Bukkit.getServer().getSpawnRadius();
 
         if (spawnSize <= 0) return true;
         if (player.isOp()) return true;
 
-        Location spawnLocation = world.getSpawnLocation();
-        return Math.max(Math.abs(x - spawnLocation.getBlockX()), Math.abs(z - spawnLocation.getBlockZ())) > spawnSize;
+        ChunkCoordinates chunkcoordinates = worldServer.getSpawn();
+
+        int distanceFromSpawn = Math.max(Math.abs(x - chunkcoordinates.posX), Math.abs(z - chunkcoordinates.posZ));
+        return distanceFromSpawn > spawnSize;
     }
 
     /**
      * Block place methods
      */
-    public static BlockPlaceEvent callBlockPlaceEvent(World world, EntityPlayerMP who, BlockState replacedBlockState, int clickedX, int clickedY, int clickedZ, int type) {
-        return callBlockPlaceEvent(world, who, replacedBlockState, clickedX, clickedY, clickedZ, net.minecraft.src.Block.blocksList[type]);
+    public static BlockPlaceEvent callBlockPlaceEvent(World world, EntityPlayer who, BlockState replacedBlockState, int clickedX, int clickedY, int clickedZ, int type) {
+        return callBlockPlaceEvent(world, who, replacedBlockState, clickedX, clickedY, clickedZ, net.minecraft.src.Block.blockList[type]);
     }
 
-    public static BlockPlaceEvent callBlockPlaceEvent(World world, EntityPlayerMP who, BlockState replacedBlockState, int clickedX, int clickedY, int clickedZ, net.minecraft.src.Block block) {
+    public static BlockPlaceEvent callBlockPlaceEvent(World world, EntityPlayer who, BlockState replacedBlockState, int clickedX, int clickedY, int clickedZ, net.minecraft.src.Block block) {
         return callBlockPlaceEvent(world, who, replacedBlockState, clickedX, clickedY, clickedZ, new net.minecraft.src.ItemStack(block));
     }
 
-    public static BlockPlaceEvent callBlockPlaceEvent(World world, EntityPlayerMP who, BlockState replacedBlockState, int clickedX, int clickedY, int clickedZ, net.minecraft.src.ItemStack itemstack) {
+    public static BlockPlaceEvent callBlockPlaceEvent(World world, EntityPlayer who, BlockState replacedBlockState, int clickedX, int clickedY, int clickedZ, net.minecraft.src.ItemStack itemstack) {
         LBWorld craftWorld = (LBWorld) Bukkit.getServer().getWorld(world.levelName);
         LilyBukkit craftServer = (LilyBukkit) Bukkit.getServer();
 
@@ -93,15 +93,15 @@ public class CraftEventFactory {
     /**
      * Bucket methods
      */
-    public static PlayerBucketEmptyEvent callPlayerBucketEmptyEvent(EntityPlayerMP who, int clickedX, int clickedY, int clickedZ, int clickedFace, net.minecraft.src.ItemStack itemInHand) {
+    public static PlayerBucketEmptyEvent callPlayerBucketEmptyEvent(EntityPlayer who, int clickedX, int clickedY, int clickedZ, int clickedFace, net.minecraft.src.ItemStack itemInHand) {
         return (PlayerBucketEmptyEvent) getPlayerBucketEvent(Type.PLAYER_BUCKET_EMPTY, who, clickedX, clickedY, clickedZ, clickedFace, itemInHand, Item.bucketEmpty);
     }
 
-    public static PlayerBucketFillEvent callPlayerBucketFillEvent(EntityPlayerMP who, int clickedX, int clickedY, int clickedZ, int clickedFace, net.minecraft.src.ItemStack itemInHand, net.minecraft.src.Item bucket) {
+    public static PlayerBucketFillEvent callPlayerBucketFillEvent(EntityPlayer who, int clickedX, int clickedY, int clickedZ, int clickedFace, net.minecraft.src.ItemStack itemInHand, net.minecraft.src.Item bucket) {
         return (PlayerBucketFillEvent) getPlayerBucketEvent(Type.PLAYER_BUCKET_FILL, who, clickedX, clickedY, clickedZ, clickedFace, itemInHand, bucket);
     }
 
-    private static PlayerEvent getPlayerBucketEvent(Type type, EntityPlayerMP who, int clickedX, int clickedY, int clickedZ, int clickedFace, net.minecraft.src.ItemStack itemStack, net.minecraft.src.Item item) {
+    private static PlayerEvent getPlayerBucketEvent(Type type, EntityPlayer who, int clickedX, int clickedY, int clickedZ, int clickedFace, net.minecraft.src.ItemStack itemStack, net.minecraft.src.Item item) {
         Player player = who == null ? null : Bukkit.getPlayerExact(who.username);
         net.minecraft.src.ItemStack vanillaItemInHand = new net.minecraft.src.ItemStack(item);
         ItemStack itemInHand = new ItemStack(vanillaItemInHand.itemID, vanillaItemInHand.stackSize, (short) vanillaItemInHand.itemDmg);
@@ -131,14 +131,14 @@ public class CraftEventFactory {
      * Player Interact event
      */
 
-    public static PlayerInteractEvent callPlayerInteractEvent(EntityPlayerMP who, Action action, net.minecraft.src.ItemStack itemstack) {
+    public static PlayerInteractEvent callPlayerInteractEvent(EntityPlayer who, Action action, net.minecraft.src.ItemStack itemstack) {
         if (action != Action.LEFT_CLICK_AIR && action != Action.RIGHT_CLICK_AIR) {
             throw new IllegalArgumentException();
         }
         return callPlayerInteractEvent(who, action, 0, 255, 0, 0, itemstack);
     }
 
-    public static PlayerInteractEvent callPlayerInteractEvent(EntityPlayerMP who, Action action, int clickedX, int clickedY, int clickedZ, int clickedFace, net.minecraft.src.ItemStack itemStack) {
+    public static PlayerInteractEvent callPlayerInteractEvent(EntityPlayer who, Action action, int clickedX, int clickedY, int clickedZ, int clickedFace, net.minecraft.src.ItemStack itemStack) {
         Player player = who == null ? null : Bukkit.getPlayerExact(who.username);
         ItemStack itemInHand = itemStack == null ? new ItemStack(0, 0, (short) 0) : new ItemStack(itemStack.itemID, itemStack.stackSize, (short) itemStack.itemDmg);
 
@@ -173,7 +173,7 @@ public class CraftEventFactory {
     /**
      * BlockDamageEvent
      */
-    public static BlockDamageEvent callBlockDamageEvent(EntityPlayerMP who, int x, int y, int z, net.minecraft.src.ItemStack itemStack, boolean instaBreak) {
+    public static BlockDamageEvent callBlockDamageEvent(EntityPlayer who, int x, int y, int z, net.minecraft.src.ItemStack itemStack, boolean instaBreak) {
         Player player = who == null ? null : Bukkit.getPlayerExact(who.username);
         ItemStack itemInHand = itemStack == null ? new ItemStack(0, 0, (short) 0) : new ItemStack(itemStack.itemID, itemStack.stackSize, (short) itemStack.itemDmg);
 
@@ -191,8 +191,8 @@ public class CraftEventFactory {
     /**
      * CreatureSpawnEvent
      */
-    public static CreatureSpawnEvent callCreatureSpawnEvent(WorldServer world, EntityLiving entityliving, SpawnReason spawnReason) {
-        LivingEntity entity = new LBLivingEntity(world.getBukkitWorld(), entityliving);
+    public static CreatureSpawnEvent callCreatureSpawnEvent(EntityLiving entityliving, SpawnReason spawnReason) {
+        org.bukkit.entity.Entity entity = entityliving.getBukkitEntity();
         LilyBukkit server = (LilyBukkit) entity.getServer();
 
         CreatureType type = null;
@@ -218,7 +218,7 @@ public class CraftEventFactory {
         } else if (entityliving instanceof EntityZombie) {
             type = CreatureType.ZOMBIE;
             // Supertype of many, last!
-        } else if (entityliving instanceof EntityMob) {
+        } else if (entityliving instanceof EntityMobs) {
             type = CreatureType.MONSTER;
         }
 
@@ -230,8 +230,8 @@ public class CraftEventFactory {
     /**
      * ItemSpawnEvent
      */
-    public static ItemSpawnEvent callItemSpawnEvent(WorldServer world, EntityItem entityitem) {
-        Entity entity = new LBEntity(world.getBukkitWorld(), entityitem);
+    public static ItemSpawnEvent callItemSpawnEvent(EntityItem entityitem) {
+        Entity entity = entityitem.getBukkitEntity();
         LilyBukkit server = (LilyBukkit) entity.getServer();
 
         ItemSpawnEvent event = new ItemSpawnEvent(entity, entity.getLocation());

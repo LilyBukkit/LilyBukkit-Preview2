@@ -11,3 +11,12 @@
  		this.dropIfNeighborPlaced(world, x, y, z);
  	}
  
+@@ -30,7 +30,7 @@
+ 
+ 	protected final void dropIfNeighborPlaced(World world, int x, int y, int z) {
+ 		if(!this.canBlockStay(world, x, y, z)) {
+-			this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z));
++			this.dropNaturally(world, x, y, z, world.getBlockMetadata(x, y, z));
+ 			world.setBlockWithNotify(x, y, z, 0);
+ 		}
+ 

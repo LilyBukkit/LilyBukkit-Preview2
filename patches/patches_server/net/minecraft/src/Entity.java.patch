@@ -1,10 +1,49 @@
 --- a/net/minecraft/src/Entity.java
 +++ b/net/minecraft/src/Entity.java
-@@ -632,7 +632,7 @@
+@@ -326,15 +326,15 @@
+ 				i27 = this.worldObj.getBlockId(i36, i25, i38);
+ 				if(this.distanceWalkedModified > (float)this.nextStepDistance && i27 > 0) {
+ 					++this.nextStepDistance;
+-					StepSound stepSound28 = Block.canBlockGrass[i27].stepSound;
++					StepSound stepSound28 = Block.blockList[i27].stepSound;
+ 					if(this.worldObj.getBlockId(i36, i25 + 1, i38) == Block.snow.blockID) {
+ 						stepSound28 = Block.snow.stepSound;
+ 						this.worldObj.playSoundAtEntity(this, stepSound28.getStepSound(), stepSound28.getVolume() * 0.15F, stepSound28.getPitch());
+-					} else if(!Block.canBlockGrass[i27].material.getIsLiquid()) {
++					} else if(!Block.blockList[i27].material.getIsLiquid()) {
+ 						this.worldObj.playSoundAtEntity(this, stepSound28.getStepSound(), stepSound28.getVolume() * 0.15F, stepSound28.getPitch());
+ 					}
+ 
+-					Block.canBlockGrass[i27].onEntityWalking(this.worldObj, i36, i25, i38, this);
++					Block.blockList[i27].onEntityWalking(this.worldObj, i36, i25, i38, this);
+ 				}
+ 			}
+ 
+@@ -350,7 +350,7 @@
+ 					for(int i32 = i38; i32 <= i29; ++i32) {
+ 						int i33 = this.worldObj.getBlockId(i30, i31, i32);
+ 						if(i33 > 0) {
+-							Block.canBlockGrass[i33].onEntityCollidedWithBlock(this.worldObj, i30, i31, i32, this);
++							Block.blockList[i33].onEntityCollidedWithBlock(this.worldObj, i30, i31, i32, this);
+ 						}
+ 					}
+ 				}
+@@ -399,7 +399,7 @@
+ 		int i5 = MathHelper.floor_float((float)MathHelper.floor_double(d2));
+ 		int i6 = MathHelper.floor_double(this.posZ);
+ 		int i7 = this.worldObj.getBlockId(i4, i5, i6);
+-		if(i7 != 0 && Block.canBlockGrass[i7].material == material) {
++		if(i7 != 0 && Block.blockList[i7].material == material) {
+ 			float f8 = BlockFluid.getFluidHeightPercent(this.worldObj.getBlockMetadata(i4, i5, i6)) - 0.11111111F;
+ 			float f9 = (float)(i5 + 1) - f8;
+ 			return d2 < (double)f9;
+@@ -631,8 +631,8 @@
+ 
  	public EntityItem entityDropItem(int itemID, int count, float velocity) {
  		EntityItem entityItem4 = new EntityItem(this.worldObj, this.posX, this.posY + (double)velocity, this.posZ, new ItemStack(itemID, count));
- 		entityItem4.delayBeforeCanPickup = 10;
+-		entityItem4.delayBeforeCanPickup = 10;
 -		this.worldObj.spawnEntityInWorld(entityItem4);
++		entityItem4.pickupDelay = 10;
 +		this.worldObj.addEntity(entityItem4);
  		return entityItem4;
  	}

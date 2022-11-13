@@ -1,0 +1,11 @@
+--- a/net/minecraft/src/TileEntityFurnace.java
++++ b/net/minecraft/src/TileEntityFurnace.java
+@@ -136,7 +136,7 @@
+ 			return 0;
+ 		} else {
+ 			int i2 = stack.getItem().shiftedIndex;
+-			return i2 < 256 && Block.canBlockGrass[i2].material == Material.wood ? 300 : (i2 == Item.stick.shiftedIndex ? 100 : (i2 == Item.coal.shiftedIndex ? 1600 : 0));
++			return i2 < 256 && Block.blockList[i2].material == Material.wood ? 300 : (i2 == Item.stick.shiftedIndex ? 100 : (i2 == Item.coal.shiftedIndex ? 1600 : 0));
+ 		}
+ 	}
+ }

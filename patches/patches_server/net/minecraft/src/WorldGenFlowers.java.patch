@@ -1,0 +1,11 @@
+--- a/net/minecraft/src/WorldGenFlowers.java
++++ b/net/minecraft/src/WorldGenFlowers.java
+@@ -14,7 +14,7 @@
+ 			int i7 = i3 + random2.nextInt(8) - random2.nextInt(8);
+ 			int i8 = i4 + random2.nextInt(4) - random2.nextInt(4);
+ 			int i9 = i5 + random2.nextInt(8) - random2.nextInt(8);
+-			if(world1.getBlockId(i7, i8, i9) == 0 && ((BlockFlower)Block.canBlockGrass[this.plantBlockId]).canBlockStay(world1, i7, i8, i9)) {
++			if(world1.getBlockId(i7, i8, i9) == 0 && ((BlockFlower)Block.blockList[this.plantBlockId]).canBlockStay(world1, i7, i8, i9)) {
+ 				world1.setBlock(i7, i8, i9, this.plantBlockId);
+ 			}
+ 		}

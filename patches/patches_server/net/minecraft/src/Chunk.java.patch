@@ -1,0 +1,56 @@
+--- a/net/minecraft/src/Chunk.java
++++ b/net/minecraft/src/Chunk.java
+@@ -201,7 +201,7 @@
+ 			int i10 = this.zPosition * 16 + i3;
+ 			this.blocks[i1 << 11 | i3 << 7 | i2] = b6;
+ 			if(i8 != 0 && !this.worldObj.multiplayerWorld) {
+-				Block.canBlockGrass[i8].onBlockRemoval(this.worldObj, i9, i2, i10);
++				Block.blockList[i8].onBlockRemoval(this.worldObj, i9, i2, i10);
+ 			}
+ 
+ 			this.data.set(i1, i2, i3, i5);
+@@ -217,7 +217,7 @@
+ 			this.worldObj.scheduleLightingUpdate(EnumSkyBlock.Block, i9, i2, i10, i9, i2, i10);
+ 			this.updateSkylight_do(i1, i3);
+ 			if(i4 != 0) {
+-				Block.canBlockGrass[i4].onBlockAdded(this.worldObj, i9, i2, i10);
++				Block.blockList[i4].onBlockAdded(this.worldObj, i9, i2, i10);
+ 			}
+ 
+ 			this.isModified = true;
+@@ -236,7 +236,7 @@
+ 			int i9 = this.zPosition * 16 + z;
+ 			this.blocks[x << 11 | z << 7 | y] = b5;
+ 			if(i7 != 0) {
+-				Block.canBlockGrass[i7].onBlockRemoval(this.worldObj, i8, y, i9);
++				Block.blockList[i7].onBlockRemoval(this.worldObj, i8, y, i9);
+ 			}
+ 
+ 			this.data.set(x, y, z, 0);
+@@ -252,7 +252,7 @@
+ 			this.worldObj.scheduleLightingUpdate(EnumSkyBlock.Block, i8, y, i9, i8, y, i9);
+ 			this.updateSkylight_do(x, z);
+ 			if(id != 0 && !this.worldObj.multiplayerWorld) {
+-				Block.canBlockGrass[id].onBlockAdded(this.worldObj, i8, y, i9);
++				Block.blockList[id].onBlockAdded(this.worldObj, i8, y, i9);
+ 			}
+ 
+ 			this.isModified = true;
+@@ -353,7 +353,7 @@
+ 		TileEntity tileEntity5 = (TileEntity)this.chunkTileEntityMap.get(chunkPosition4);
+ 		if(tileEntity5 == null) {
+ 			int i6 = this.getBlockID(x, y, z);
+-			BlockContainer blockContainer7 = (BlockContainer)Block.canBlockGrass[i6];
++			BlockContainer blockContainer7 = (BlockContainer)Block.blockList[i6];
+ 			blockContainer7.onBlockAdded(this.worldObj, this.xPosition * 16 + x, y, this.zPosition * 16 + z);
+ 			tileEntity5 = (TileEntity)this.chunkTileEntityMap.get(chunkPosition4);
+ 		}
+@@ -374,7 +374,7 @@
+ 		tileEntity.xCoord = this.xPosition * 16 + x;
+ 		tileEntity.yCoord = y;
+ 		tileEntity.zCoord = this.zPosition * 16 + z;
+-		if(this.getBlockID(x, y, z) != 0 && Block.canBlockGrass[this.getBlockID(x, y, z)] instanceof BlockContainer) {
++		if(this.getBlockID(x, y, z) != 0 && Block.blockList[this.getBlockID(x, y, z)] instanceof BlockContainer) {
+ 			if(this.isChunkLoaded) {
+ 				if(this.chunkTileEntityMap.get(chunkPosition5) != null) {
+ 					this.worldObj.loadedTileEntityList.remove(this.chunkTileEntityMap.get(chunkPosition5));

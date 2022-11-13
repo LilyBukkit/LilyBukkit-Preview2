@@ -63,7 +63,7 @@
  		this.updateAndPropagateCurrentStrength(world, x, y, z);
  		this.notifyWireNeighborsOfNeighborChange(world, x - 1, y, z);
  		this.notifyWireNeighborsOfNeighborChange(world, x + 1, y, z);
-@@ -218,7 +218,7 @@
+@@ -218,17 +218,17 @@
  		}
  	}
  
@@ -72,7 +72,10 @@
  		int i6 = world.getBlockMetadata(x, y, z);
  		boolean z7 = this.canPlaceBlockAt(world, x, y, z);
  		if(!z7) {
-@@ -228,7 +228,7 @@
+-			this.dropBlockAsItem(world, x, y, z, i6);
++			this.dropNaturally(world, x, y, z, i6);
+ 			world.setBlockWithNotify(x, y, z, 0);
+ 		} else {
  			this.updateAndPropagateCurrentStrength(world, x, y, z);
  		}
  
@@ -81,3 +84,11 @@
  	}
  
  	public int idDropped(int i1, Random random2) {
+@@ -279,6 +279,6 @@
+ 
+ 	public static boolean isPowerProviderOrWire(IBlockAccess blockAccess, int x, int y, int z) {
+ 		int i4 = blockAccess.getBlockId(x, y, z);
+-		return i4 == Block.redstoneWire.blockID ? true : (i4 == 0 ? false : Block.canBlockGrass[i4].canProvidePower());
++		return i4 == Block.redstoneWire.blockID ? true : (i4 == 0 ? false : Block.blockList[i4].canProvidePower());
+ 	}
+ }

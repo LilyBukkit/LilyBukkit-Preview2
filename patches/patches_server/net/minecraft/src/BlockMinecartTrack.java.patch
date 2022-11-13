@@ -9,3 +9,15 @@
  		int i6 = world.getBlockMetadata(x, y, z);
  		boolean z7 = false;
  		if(!world.isBlockNormalCube(x, y - 1, z)) {
+@@ -72,9 +72,9 @@
+ 		}
+ 
+ 		if(z7) {
+-			this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z));
++			this.dropNaturally(world, x, y, z, world.getBlockMetadata(x, y, z));
+ 			world.setBlockWithNotify(x, y, z, 0);
+-		} else if(flag > 0 && Block.canBlockGrass[flag].canProvidePower() && MinecartTrackLogic.getAdjacentTracks(new MinecartTrackLogic(this, world, x, y, z)) == 3) {
++		} else if(flag > 0 && Block.blockList[flag].canProvidePower() && MinecartTrackLogic.getAdjacentTracks(new MinecartTrackLogic(this, world, x, y, z)) == 3) {
+ 			this.refreshTrackShape(world, x, y, z);
+ 		}
+ 

@@ -1,0 +1,14 @@
+--- a/net/minecraft/src/ItemReed.java
++++ b/net/minecraft/src/ItemReed.java
+@@ -41,9 +41,9 @@
+ 			return false;
+ 		} else {
+ 			if(world3.canBlockBePlacedAt(this.spawnID, i4, i5, i6, false)) {
+-				Block block8 = Block.canBlockGrass[this.spawnID];
++				Block block8 = Block.blockList[this.spawnID];
+ 				if(world3.setBlockWithNotify(i4, i5, i6, this.spawnID)) {
+-					Block.canBlockGrass[this.spawnID].onBlockPlaced(world3, i4, i5, i6, i7);
++					Block.blockList[this.spawnID].onBlockPlaced(world3, i4, i5, i6, i7);
+ 					world3.playSoundEffect((double)((float)i4 + 0.5F), (double)((float)i5 + 0.5F), (double)((float)i6 + 0.5F), block8.stepSound.getStepSound(), (block8.stepSound.getVolume() + 1.0F) / 2.0F, block8.stepSound.getPitch() * 0.8F);
+ 					--itemStack1.stackSize;
+ 				}

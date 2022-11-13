@@ -1,0 +1,40 @@
+--- a/net/minecraft/src/EntityItem.java
++++ b/net/minecraft/src/EntityItem.java
+@@ -4,7 +4,7 @@
+ 	public ItemStack item;
+ 	private int age2;
+ 	public int age = 0;
+-	public int delayBeforeCanPickup;
++	public int pickupDelay;
+ 	private int health = 5;
+ 	public float hoverStart = (float)(Math.random() * Math.PI * 2.0D);
+ 
+@@ -29,8 +29,8 @@
+ 
+ 	public void onUpdate() {
+ 		super.onUpdate();
+-		if(this.delayBeforeCanPickup > 0) {
+-			--this.delayBeforeCanPickup;
++		if(this.pickupDelay > 0) {
++			--this.pickupDelay;
+ 		}
+ 
+ 		this.prevPosX = this.posX;
+@@ -52,7 +52,7 @@
+ 			f1 = 0.58800006F;
+ 			int i2 = this.worldObj.getBlockId(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.boundingBox.minY) - 1, MathHelper.floor_double(this.posZ));
+ 			if(i2 > 0) {
+-				f1 = Block.canBlockGrass[i2].slipperiness * 0.98F;
++				f1 = Block.blockList[i2].slipperiness * 0.98F;
+ 			}
+ 		}
+ 
+@@ -179,7 +179,7 @@
+ 	public void onCollideWithPlayer(EntityPlayer entityPlayer1) {
+ 		if(!this.worldObj.multiplayerWorld) {
+ 			int i2 = this.item.stackSize;
+-			if(this.delayBeforeCanPickup == 0 && entityPlayer1.inventory.addItemStackToInventory(this.item)) {
++			if(this.pickupDelay == 0 && entityPlayer1.inventory.addItemStackToInventory(this.item)) {
+ 				this.worldObj.playSoundAtEntity(this, "random.pop", 0.2F, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+ 				entityPlayer1.onItemPickup(this, i2);
+ 				this.setEntityDead();

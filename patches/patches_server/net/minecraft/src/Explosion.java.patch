@@ -1,0 +1,23 @@
+--- a/net/minecraft/src/Explosion.java
++++ b/net/minecraft/src/Explosion.java
+@@ -39,7 +39,7 @@
+ 							int i34 = MathHelper.floor_double(d29);
+ 							int i35 = world.getBlockId(i32, i33, i34);
+ 							if(i35 > 0) {
+-								f24 -= (Block.canBlockGrass[i35].getExplosionResistance(entity) + 0.3F) * f31;
++								f24 -= (Block.blockList[i35].getExplosionResistance(entity) + 0.3F) * f31;
+ 							}
+ 
+ 							if(f24 > 0.0F) {
+@@ -120,9 +120,9 @@
+ 			}
+ 
+ 			if(i54 > 0) {
+-				Block.canBlockGrass[i54].dropBlockAsItemWithChance(world, i52, i53, i26, world.getBlockMetadata(i52, i53, i26), 0.3F);
++				Block.blockList[i54].dropBlockAsItemWithChance(world, i52, i53, i26, world.getBlockMetadata(i52, i53, i26), 0.3F);
+ 				world.setBlockWithNotify(i52, i53, i26, 0);
+-				Block.canBlockGrass[i54].onBlockDestroyedByExplosion(world, i52, i53, i26);
++				Block.blockList[i54].onBlockDestroyedByExplosion(world, i52, i53, i26);
+ 			}
+ 		}
+ 

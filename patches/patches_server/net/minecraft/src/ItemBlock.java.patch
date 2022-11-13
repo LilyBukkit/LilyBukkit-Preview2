@@ -1,0 +1,23 @@
+--- a/net/minecraft/src/ItemBlock.java
++++ b/net/minecraft/src/ItemBlock.java
+@@ -6,7 +6,7 @@
+ 	public ItemBlock(int i1) {
+ 		super(i1);
+ 		this.blockID = i1 + 256;
+-		this.setIconIndex(Block.canBlockGrass[i1 + 256].getBlockTextureFromSide(2));
++		this.setIconIndex(Block.blockList[i1 + 256].getBlockTextureFromSide(2));
+ 	}
+ 
+ 	public boolean onItemUse(ItemStack itemStack1, EntityPlayer entityPlayer2, World world3, int i4, int i5, int i6, int i7) {
+@@ -42,9 +42,9 @@
+ 			return false;
+ 		} else {
+ 			if(world3.canBlockBePlacedAt(this.blockID, i4, i5, i6, false)) {
+-				Block block8 = Block.canBlockGrass[this.blockID];
++				Block block8 = Block.blockList[this.blockID];
+ 				if(world3.setBlockWithNotify(i4, i5, i6, this.blockID)) {
+-					Block.canBlockGrass[this.blockID].onBlockPlaced(world3, i4, i5, i6, i7);
++					Block.blockList[this.blockID].onBlockPlaced(world3, i4, i5, i6, i7);
+ 					world3.playSoundEffect((double)((float)i4 + 0.5F), (double)((float)i5 + 0.5F), (double)((float)i6 + 0.5F), block8.stepSound.getStepSound(), (block8.stepSound.getVolume() + 1.0F) / 2.0F, block8.stepSound.getPitch() * 0.8F);
+ 					--itemStack1.stackSize;
+ 				}

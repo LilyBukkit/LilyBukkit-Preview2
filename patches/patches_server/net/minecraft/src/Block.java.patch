@@ -1,6 +1,6 @@
 --- a/net/minecraft/src/Block.java
 +++ b/net/minecraft/src/Block.java
-@@ -4,459 +4,465 @@
+@@ -4,459 +4,480 @@
  import java.util.Random;
  
  public class Block {
@@ -468,7 +468,7 @@
 +    public static final StepSound soundGlassFootstepo = new StepSoundGlass("stone", 1.0F, 1.0F);
 +    public static final StepSound soundClothFootstep = new StepSound("cloth", 1.0F, 1.0F);
 +    public static final StepSound soundSandFootstep = new StepSoundSand("sand", 1.0F, 1.0F);
-+    public static final Block[] canBlockGrass = new Block[256];
++    public static final Block[] blockList = new Block[256];
 +    public static final boolean[] tickOnLoad = new boolean[256];
 +    public static final boolean[] opaqueCubeLookup = new boolean[256];
 +    public static final int[] lightOpacity = new int[256];
@@ -600,11 +600,11 @@
 +        this.stepSound = soundPowderFootstep;
 +        this.blockParticleGravity = 1.0F;
 +        this.slipperiness = 0.6F;
-+        if (canBlockGrass[id] != null) {
-+            throw new IllegalArgumentException("Slot " + id + " is already occupied by " + canBlockGrass[id] + " when adding " + this);
++        if (blockList[id] != null) {
++            throw new IllegalArgumentException("Slot " + id + " is already occupied by " + blockList[id] + " when adding " + this);
 +        } else {
 +            this.material = material;
-+            canBlockGrass[id] = this;
++            blockList[id] = this;
 +            this.blockID = id;
 +            this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 +            opaqueCubeLookup[id] = this.isOpaqueCube();
@@ -660,12 +660,12 @@
 +    }
 +
 +    public void setBlockBounds(float minX, float minY, float minZ, float maxX, float maxY, float maxZ) {
-+        this.minX = (double) minX;
-+        this.minY = (double) minY;
-+        this.minZ = (double) minZ;
-+        this.maxX = (double) maxX;
-+        this.maxY = (double) maxY;
-+        this.maxZ = (double) maxZ;
++        this.minX = minX;
++        this.minY = minY;
++        this.minZ = minZ;
++        this.maxX = maxX;
++        this.maxY = maxY;
++        this.maxZ = maxZ;
 +    }
 +
 +    public boolean shouldSideBeRendered(IBlockAccess blockAccess, int x, int y, int z, int side) {
@@ -731,8 +731,23 @@
 +        return this.hardness < 0.0F ? 0.0F : (!entityPlayer.canHarvestBlock(this) ? 1.0F / this.hardness / 100.0F : entityPlayer.getCurrentPlayerStrVsBlock(this) / this.hardness / 30.0F);
 +    }
 +
-+    public void dropBlockAsItem(World world, int i2, int i3, int i4, int i5) {
-+        this.dropBlockAsItemWithChance(world, i2, i3, i4, i5, 1.0F);
++    public void dropNaturally(World world, int i2, int i3, int i4, int i5) {
++        // LilyBukkit start
++        if (!world.multiplayerWorld) {
++            int i1 = this.quantityDropped(world.rand);
++
++            for (int j1 = 0; j1 < i1; ++j1) {
++                // CraftBukkit - <= to < to allow for plugins to completely disable block drops from explosions
++                if (world.rand.nextInt() < i5) {
++                    int k1 = this.idDropped(i4, world.rand);
++
++                    if (k1 > 0) {
++                        this.dropBlockAsItemWithChance(world, i2, i3, i4, i5, 1.0F);
++                    }
++                }
++            }
++        }
++        // LilyBukkit end
 +    }
 +
 +    public void dropBlockAsItemWithChance(World world, int x, int y, int z, int i5, float f6) {
@@ -744,7 +759,7 @@
 +                    int i9 = this.idDropped(i5, world.rand);
 +                    if (i9 > 0) {
 +                        EntityItem entityItem11 = new EntityItem(world, (double) x + (double) (world.rand.nextFloat() * 0.7F) + (double) 0.15F, (double) y + (double) (world.rand.nextFloat() * 0.7F) + (double) 0.15F, (double) z + (double) (world.rand.nextFloat() * 0.7F) + (double) 0.15F, new ItemStack(i9));
-+                        entityItem11.delayBeforeCanPickup = 10;
++                        entityItem11.pickupDelay = 10;
 +                        world.addEntity(entityItem11);
 +                    }
 +                }
@@ -759,8 +774,8 @@
 +
 +    public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3D vector1, Vec3D vector2) {
 +        this.setBlockBoundsBasedOnState(world, x, y, z);
-+        vector1 = vector1.addVector((double) (-x), (double) (-y), (double) (-z));
-+        vector2 = vector2.addVector((double) (-x), (double) (-y), (double) (-z));
++        vector1 = vector1.addVector(-x, -y, -z);
++        vector2 = vector2.addVector(-x, -y, -z);
 +        Vec3D vec3D7 = vector1.getIntermediateWithXValue(vector2, this.minX);
 +        Vec3D vec3D8 = vector1.getIntermediateWithXValue(vector2, this.maxX);
 +        Vec3D vec3D9 = vector1.getIntermediateWithYValue(vector2, this.minY);
@@ -844,7 +859,7 @@
 +                b14 = 3;
 +            }
 +
-+            return new MovingObjectPosition(x, y, z, b14, vec3D13.addVector((double) x, (double) y, (double) z));
++            return new MovingObjectPosition(x, y, z, b14, vec3D13.addVector(x, y, z));
 +        }
 +    }
 +
@@ -865,7 +880,7 @@
 +
 +    public boolean canPlaceBlockAt(World world, int x, int y, int z) {
 +        int i5 = world.getBlockId(x, y, z);
-+        return (i5 == 0 || canBlockGrass[i5].material.getIsLiquid())
++        return (i5 == 0 || blockList[i5].material.getIsLiquid())
 +                // LilyBukkit start - add Spawn Protection check
 +                && (
 +                MathHelper.abs(world.spawnX) - MathHelper.abs(x) > world.getServer().getSpawnRadius() &&
@@ -914,7 +929,7 @@
 +
 +    static {
 +        for (int i0 = 0; i0 < 256; ++i0) {
-+            if (canBlockGrass[i0] != null) {
++            if (blockList[i0] != null) {
 +                Item.itemsList[i0] = new ItemBlock(i0 - 256);
 +            }
 +        }

@@ -18,3 +18,21 @@
  				}
  			} else if(z7) {
  				this.updateFlow(world1, i2, i3, i4);
+@@ -115,7 +115,7 @@
+ 				if(this.material == Material.lava) {
+ 					this.triggerLavaMixEffects(world, x, y, z);
+ 				} else {
+-					Block.canBlockGrass[i6].dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z));
++					Block.blockList[i6].dropNaturally(world, x, y, z, world.getBlockMetadata(x, y, z));
+ 				}
+ 			}
+ 
+@@ -218,7 +218,7 @@
+ 			if(i5 == 0) {
+ 				return false;
+ 			} else {
+-				Material material6 = Block.canBlockGrass[i5].material;
++				Material material6 = Block.blockList[i5].material;
+ 				return material6.isSolid();
+ 			}
+ 		} else {

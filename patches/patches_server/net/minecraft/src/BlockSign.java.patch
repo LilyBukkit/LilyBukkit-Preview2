@@ -9,7 +9,12 @@
  		boolean z6 = false;
  		if(this.isFreestanding) {
  			if(!world.getBlockMaterial(x, y - 1, z).isSolid()) {
-@@ -99,6 +99,6 @@
+@@ -95,10 +95,10 @@
+ 		}
+ 
+ 		if(z6) {
+-			this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z));
++			this.dropNaturally(world, x, y, z, world.getBlockMetadata(x, y, z));
  			world.setBlockWithNotify(x, y, z, 0);
  		}
  

@@ -1,0 +1,11 @@
+--- a/net/minecraft/src/NetServerHandler.java
++++ b/net/minecraft/src/NetServerHandler.java
+@@ -227,7 +227,7 @@
+ 		entityItem2.motionX = (double)packet.rotation / 128.0D;
+ 		entityItem2.motionY = (double)packet.pitch / 128.0D;
+ 		entityItem2.motionZ = (double)packet.roll / 128.0D;
+-		entityItem2.delayBeforeCanPickup = 10;
++		entityItem2.pickupDelay = 10;
+ 		this.mcServer.worldMngr.spawnEntityInWorld(entityItem2);
+ 	}
+ 

@@ -11,3 +11,12 @@
  		if(world.getBlockId(x, y, z) == this.blockID) {
  			this.setNotStationary(world, x, y, z);
  		}
+@@ -43,7 +43,7 @@
+ 						world1.setBlockWithNotify(i2, i3, i4, Block.fire.blockID);
+ 						return;
+ 					}
+-				} else if(Block.canBlockGrass[i8].material.getIsSolid()) {
++				} else if(Block.blockList[i8].material.getIsSolid()) {
+ 					return;
+ 				}
+ 			}

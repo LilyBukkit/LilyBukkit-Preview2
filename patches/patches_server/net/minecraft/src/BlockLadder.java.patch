@@ -9,7 +9,12 @@
  		int i6 = world.getBlockMetadata(x, y, z);
  		boolean z7 = false;
  		if(i6 == 2 && world.isBlockNormalCube(x, y, z + 1)) {
-@@ -86,7 +86,7 @@
+@@ -82,11 +82,11 @@
+ 		}
+ 
+ 		if(!z7) {
+-			this.dropBlockAsItem(world, x, y, z, i6);
++			this.dropNaturally(world, x, y, z, i6);
  			world.setBlockWithNotify(x, y, z, 0);
  		}
  
