@@ -1,0 +1,47 @@
+--- a/net/minecraft/src/ChunkProviderServer.java
++++ b/net/minecraft/src/ChunkProviderServer.java
+@@ -26,7 +26,7 @@
+ 		this.serverChunkProvider = chunkProvider;
+ 	}
+ 
+-	public boolean chunkExists(int i1, int i2) {
++	public boolean isChunkLoaded(int i1, int i2) {
+ 		ChunkCoordinates chunkCoordinates3 = new ChunkCoordinates(i1, i2);
+ 		return this.id2ChunkMap.containsKey(chunkCoordinates3);
+ 	}
+@@ -51,7 +51,7 @@
+ 				if(this.serverChunkProvider == null) {
+ 					chunk4 = this.chunk;
+ 				} else {
+-					chunk4 = this.serverChunkProvider.provideChunk(x, z);
++					chunk4 = this.serverChunkProvider.getOrCreateChunk(x, z);
+ 				}
+ 			}
+ 
+@@ -81,7 +81,7 @@
+ 		return chunk4;
+ 	}
+ 
+-	public Chunk provideChunk(int x, int z) {
++	public Chunk getOrCreateChunk(int x, int z) {
+ 		ChunkCoordinates chunkCoordinates3 = new ChunkCoordinates(x, z);
+ 		Chunk chunk4 = (Chunk)this.id2ChunkMap.get(chunkCoordinates3);
+ 		return chunk4 == null ? (this.worldObj.worldChunkLoadOverride ? this.loadChunk(x, z) : this.chunk) : chunk4;
+@@ -170,7 +170,7 @@
+ 		return true;
+ 	}
+ 
+-	public boolean unload100OldestChunks() {
++	public boolean unloadChunks() {
+ 		if(!this.worldObj.levelSaving) {
+ 			for(int i1 = 0; i1 < 16; ++i1) {
+ 				if(!this.droppedChunksSet.isEmpty()) {
+@@ -190,7 +190,7 @@
+ 			}
+ 		}
+ 
+-		return this.serverChunkProvider.unload100OldestChunks();
++		return this.serverChunkProvider.unloadChunks();
+ 	}
+ 
+ 	public boolean canSave() {

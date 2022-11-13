@@ -1,6 +1,6 @@
 --- /dev/null
 +++ b/org/bukkit/craftbukkit/event/CraftEventFactory.java
-@@ -1,0 +1,260 @@
+@@ -1,0 +1,254 @@
 +package org.bukkit.craftbukkit.event;
 +
 +import net.minecraft.src.ChunkCoordinates;
@@ -10,11 +10,9 @@
 +import net.minecraft.src.EntityGiantZombie;
 +import net.minecraft.src.EntityItem;
 +import net.minecraft.src.EntityLiving;
-+import net.minecraft.src.EntityMob;
 +import net.minecraft.src.EntityMobs;
 +import net.minecraft.src.EntityPig;
 +import net.minecraft.src.EntityPlayer;
-+import net.minecraft.src.EntityPlayerMP;
 +import net.minecraft.src.EntitySheep;
 +import net.minecraft.src.EntitySkeleton;
 +import net.minecraft.src.EntitySlime;
@@ -24,14 +22,12 @@
 +import net.minecraft.src.World;
 +import net.minecraft.src.WorldServer;
 +import org.bukkit.Bukkit;
-+import org.bukkit.Location;
 +import org.bukkit.Material;
 +import org.bukkit.block.Block;
 +import org.bukkit.block.BlockFace;
 +import org.bukkit.block.BlockState;
 +import org.bukkit.entity.CreatureType;
 +import org.bukkit.entity.Entity;
-+import org.bukkit.entity.LivingEntity;
 +import org.bukkit.entity.Player;
 +import org.bukkit.event.Event.Type;
 +import org.bukkit.event.block.Action;
@@ -49,8 +45,6 @@
 +import ru.vladthemountain.lilybukkit.core.LBWorld;
 +import ru.vladthemountain.lilybukkit.core.LilyBukkit;
 +import ru.vladthemountain.lilybukkit.core.block.LBBlock;
-+import ru.vladthemountain.lilybukkit.core.entity.LBEntity;
-+import ru.vladthemountain.lilybukkit.core.entity.LBLivingEntity;
 +
 +/**
 + * CraftEventFactory used by CraftBukkit.

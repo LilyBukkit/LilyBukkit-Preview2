@@ -1,0 +1,44 @@
+--- a/net/minecraft/src/ChunkProviderLoadOrGenerate.java
++++ b/net/minecraft/src/ChunkProviderLoadOrGenerate.java
+@@ -21,7 +21,7 @@
+ 		this.chunkProvider = chunkProvider;
+ 	}
+ 
+-	public boolean chunkExists(int i1, int i2) {
++	public boolean isChunkLoaded(int i1, int i2) {
+ 		if(i1 == this.lastQueriedChunkXPos && i2 == this.lastQueriedChunkZPos && this.lastQueriedChunk != null) {
+ 			return true;
+ 		} else {
+@@ -32,7 +32,7 @@
+ 		}
+ 	}
+ 
+-	public Chunk provideChunk(int x, int z) {
++	public Chunk getOrCreateChunk(int x, int z) {
+ 		if(x == this.lastQueriedChunkXPos && z == this.lastQueriedChunkZPos && this.lastQueriedChunk != null) {
+ 			return this.lastQueriedChunk;
+ 		} else {
+@@ -51,7 +51,7 @@
+ 					if(this.chunkProvider == null) {
+ 						chunk6 = this.blankChunk;
+ 					} else {
+-						chunk6 = this.chunkProvider.provideChunk(x, z);
++						chunk6 = this.chunkProvider.getOrCreateChunk(x, z);
+ 					}
+ 				}
+ 
+@@ -186,12 +186,12 @@
+ 		return true;
+ 	}
+ 
+-	public boolean unload100OldestChunks() {
++	public boolean unloadChunks() {
+ 		if(this.chunkLoader != null) {
+ 			this.chunkLoader.chunkTick();
+ 		}
+ 
+-		return this.chunkProvider.unload100OldestChunks();
++		return this.chunkProvider.unloadChunks();
+ 	}
+ 
+ 	public boolean canSave() {

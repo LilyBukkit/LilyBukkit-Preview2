@@ -1988,7 +1988,7 @@
 +    }
 +
 +    private boolean chunkExists(int x, int z) {
-+        return this.chunkProvider.chunkExists(x, z);
++        return this.chunkProvider.isChunkLoaded(x, z);
 +    }
 +
 +    public Chunk getChunkFromBlockCoords(int x, int z) {
@@ -1996,7 +1996,7 @@
 +    }
 +
 +    public Chunk getChunkFromChunkCoords(int x, int z) {
-+        return this.chunkProvider.provideChunk(x, z);
++        return this.chunkProvider.getOrCreateChunk(x, z);
 +    }
 +
 +    public boolean setBlockAndMetadata(int x, int y, int z, int id, int data) {
@@ -3050,7 +3050,7 @@
 +    }
 +
 +    public void tick() {
-+        this.chunkProvider.unload100OldestChunks();
++        this.chunkProvider.unloadChunks();
 +        int i1 = this.calculateSkylightSubtracted(1.0F);
 +        if (i1 != this.skylightSubtracted) {
 +            this.skylightSubtracted = i1;
@@ -3470,7 +3470,7 @@
 +            if (this.lastChunkAccessed == null || this.lastXAccessed != i || this.lastZAccessed != j) {
 +                this.lastXAccessed = i;
 +                this.lastZAccessed = j;
-+                this.lastChunkAccessed = this.chunkProvider.provideChunk(i, j);
++                this.lastChunkAccessed = this.chunkProvider.getOrCreateChunk(i, j);
 +            }
 +            result = this.lastChunkAccessed;
 +        }
