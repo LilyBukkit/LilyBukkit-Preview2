@@ -1,0 +1,20 @@
+--- a/net/minecraft/src/WorldGenDungeons.java
++++ b/net/minecraft/src/WorldGenDungeons.java
+@@ -75,7 +75,7 @@
+ 
+ 						if(i15 == 1) {
+ 							world1.setBlockWithNotify(i12, i4, i14, Block.crate.blockID);
+-							TileEntityChest tileEntityChest16 = (TileEntityChest)world1.getBlockTileEntity(i12, i4, i14);
++							TileEntityChest tileEntityChest16 = (TileEntityChest)world1.getTileEntity(i12, i4, i14);
+ 							int i17 = 0;
+ 
+ 							while(true) {
+@@ -96,7 +96,7 @@
+ 			}
+ 
+ 			world1.setBlockWithNotify(i3, i4, i5, Block.spawner.blockID);
+-			TileEntityMobSpawner tileEntityMobSpawner19 = (TileEntityMobSpawner)world1.getBlockTileEntity(i3, i4, i5);
++			TileEntityMobSpawner tileEntityMobSpawner19 = (TileEntityMobSpawner)world1.getTileEntity(i3, i4, i5);
+ 			tileEntityMobSpawner19.mobID = this.pickMobSpawner(random2);
+ 			return true;
+ 		} else {

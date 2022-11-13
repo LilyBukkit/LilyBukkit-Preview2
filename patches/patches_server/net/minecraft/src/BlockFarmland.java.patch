@@ -1,0 +1,13 @@
+--- a/net/minecraft/src/BlockFarmland.java
++++ b/net/minecraft/src/BlockFarmland.java
+@@ -70,8 +70,8 @@
+ 		return false;
+ 	}
+ 
+-	public void onNeighborBlockChange(World world, int x, int y, int z, int flag) {
+-		super.onNeighborBlockChange(world, x, y, z, flag);
++	public void doPhysics(World world, int x, int y, int z, int flag) {
++		super.doPhysics(world, x, y, z, flag);
+ 		Material material6 = world.getBlockMaterial(x, y + 1, z);
+ 		if(material6.isSolid()) {
+ 			world.setBlockWithNotify(x, y, z, Block.dirt.blockID);

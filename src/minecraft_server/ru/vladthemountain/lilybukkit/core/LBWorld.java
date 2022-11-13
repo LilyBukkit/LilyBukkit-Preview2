@@ -465,7 +465,7 @@ public class LBWorld implements World {
     @Override
     public Item dropItemNaturally(Location location, ItemStack item) {
         EntityItem i = new EntityItem(this.world, new Integer(location.getBlockX()).doubleValue(), new Integer(location.getBlockY()).doubleValue(), new Integer(location.getBlockZ()).doubleValue(), new net.minecraft.src.ItemStack(item.getTypeId(), item.getAmount(), item.getData().getData()));
-        if (this.world.spawnEntityInWorld(i, SpawnReason.NATURAL)) return new LBItem(this, i);
+        if (this.world.addEntity(i, SpawnReason.NATURAL)) return new LBItem(this, i);
         return null;
     }
 
@@ -483,7 +483,7 @@ public class LBWorld implements World {
         EntityArrow e = new EntityArrow(this.world);
         e.setPosition(new Integer(location.getBlockX()).doubleValue(), new Integer(location.getBlockY()).doubleValue(), new Integer(location.getBlockZ()).doubleValue());
         e.setArrowHeading(velocity.getX(), velocity.getY(), velocity.getZ(), velocity.angle(new Vector(0, velocity.getY(), 0)), velocity.angle(new Vector(velocity.getX(), 0, 0)));
-        if (this.world.spawnEntityInWorld(e, SpawnReason.CUSTOM)) return (Arrow) e.getBukkitEntity();
+        if (this.world.addEntity(e, SpawnReason.CUSTOM)) return (Arrow) e.getBukkitEntity();
         return null;
     }
 
@@ -891,7 +891,7 @@ public class LBWorld implements World {
             entityToSpawn = new EntityZombie(this.world);
             entityToSpawn.setPosition(location.getX(), location.getY(), location.getZ());
         }
-        if (entityToSpawn != null && this.world.spawnEntityInWorld(entityToSpawn, SpawnReason.CUSTOM))
+        if (entityToSpawn != null && this.world.addEntity(entityToSpawn, SpawnReason.CUSTOM))
             return (T) entityToSpawn.getBukkitEntity();
         else throw new IllegalArgumentException("Can't spawn entity");
     }

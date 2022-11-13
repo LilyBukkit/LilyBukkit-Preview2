@@ -1,0 +1,11 @@
+--- a/net/minecraft/src/TileEntityMobSpawner.java
++++ b/net/minecraft/src/TileEntityMobSpawner.java
+@@ -54,7 +54,7 @@
+ 						double d15 = (double)this.zCoord + (this.worldObj.rand.nextDouble() - this.worldObj.rand.nextDouble()) * 4.0D;
+ 						entityLiving9.setLocationAndAngles(d11, d13, d15, this.worldObj.rand.nextFloat() * 360.0F, 0.0F);
+ 						if(entityLiving9.getCanSpawnHere()) {
+-							this.worldObj.spawnEntityInWorld(entityLiving9);
++							this.worldObj.addEntity(entityLiving9);
+ 
+ 							for(int i17 = 0; i17 < 20; ++i17) {
+ 								d1 = (double)this.xCoord + 0.5D + ((double)this.worldObj.rand.nextFloat() - 0.5D) * 2.0D;

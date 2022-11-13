@@ -1,0 +1,85 @@
+--- a/net/minecraft/src/BlockButton.java
++++ b/net/minecraft/src/BlockButton.java
+@@ -61,7 +61,7 @@
+ 		this.checkIfAttachedToBlock(world1, i2, i3, i4);
+ 	}
+ 
+-	public void onNeighborBlockChange(World world, int x, int y, int z, int flag) {
++	public void doPhysics(World world, int x, int y, int z, int flag) {
+ 		if(this.checkIfAttachedToBlock(world, x, y, z)) {
+ 			int i6 = world.getBlockMetadata(x, y, z) & 7;
+ 			boolean z7 = false;
+@@ -137,17 +137,17 @@
+ 			world1.setBlockMetadataWithNotify(i2, i3, i4, i7 + i8);
+ 			world1.markBlocksDirty(i2, i3, i4, i2, i3, i4);
+ 			world1.playSoundEffect((double)i2 + 0.5D, (double)i3 + 0.5D, (double)i4 + 0.5D, "random.click", 0.3F, 0.6F);
+-			world1.notifyBlocksOfNeighborChange(i2, i3, i4, this.blockID);
++			world1.applyPhysics(i2, i3, i4, this.blockID);
+ 			if(i7 == 1) {
+-				world1.notifyBlocksOfNeighborChange(i2 - 1, i3, i4, this.blockID);
++				world1.applyPhysics(i2 - 1, i3, i4, this.blockID);
+ 			} else if(i7 == 2) {
+-				world1.notifyBlocksOfNeighborChange(i2 + 1, i3, i4, this.blockID);
++				world1.applyPhysics(i2 + 1, i3, i4, this.blockID);
+ 			} else if(i7 == 3) {
+-				world1.notifyBlocksOfNeighborChange(i2, i3, i4 - 1, this.blockID);
++				world1.applyPhysics(i2, i3, i4 - 1, this.blockID);
+ 			} else if(i7 == 4) {
+-				world1.notifyBlocksOfNeighborChange(i2, i3, i4 + 1, this.blockID);
++				world1.applyPhysics(i2, i3, i4 + 1, this.blockID);
+ 			} else {
+-				world1.notifyBlocksOfNeighborChange(i2, i3 - 1, i4, this.blockID);
++				world1.applyPhysics(i2, i3 - 1, i4, this.blockID);
+ 			}
+ 
+ 			world1.scheduleBlockUpdate(i2, i3, i4, this.blockID);
+@@ -158,18 +158,18 @@
+ 	public void onBlockRemoval(World world, int x, int y, int z) {
+ 		int i5 = world.getBlockMetadata(x, y, z);
+ 		if((i5 & 8) > 0) {
+-			world.notifyBlocksOfNeighborChange(x, y, z, this.blockID);
++			world.applyPhysics(x, y, z, this.blockID);
+ 			int i6 = i5 & 7;
+ 			if(i6 == 1) {
+-				world.notifyBlocksOfNeighborChange(x - 1, y, z, this.blockID);
++				world.applyPhysics(x - 1, y, z, this.blockID);
+ 			} else if(i6 == 2) {
+-				world.notifyBlocksOfNeighborChange(x + 1, y, z, this.blockID);
++				world.applyPhysics(x + 1, y, z, this.blockID);
+ 			} else if(i6 == 3) {
+-				world.notifyBlocksOfNeighborChange(x, y, z - 1, this.blockID);
++				world.applyPhysics(x, y, z - 1, this.blockID);
+ 			} else if(i6 == 4) {
+-				world.notifyBlocksOfNeighborChange(x, y, z + 1, this.blockID);
++				world.applyPhysics(x, y, z + 1, this.blockID);
+ 			} else {
+-				world.notifyBlocksOfNeighborChange(x, y - 1, z, this.blockID);
++				world.applyPhysics(x, y - 1, z, this.blockID);
+ 			}
+ 		}
+ 
+@@ -198,18 +198,18 @@
+ 		int i6 = world1.getBlockMetadata(i2, i3, i4);
+ 		if((i6 & 8) != 0) {
+ 			world1.setBlockMetadataWithNotify(i2, i3, i4, i6 & 7);
+-			world1.notifyBlocksOfNeighborChange(i2, i3, i4, this.blockID);
++			world1.applyPhysics(i2, i3, i4, this.blockID);
+ 			int i7 = i6 & 7;
+ 			if(i7 == 1) {
+-				world1.notifyBlocksOfNeighborChange(i2 - 1, i3, i4, this.blockID);
++				world1.applyPhysics(i2 - 1, i3, i4, this.blockID);
+ 			} else if(i7 == 2) {
+-				world1.notifyBlocksOfNeighborChange(i2 + 1, i3, i4, this.blockID);
++				world1.applyPhysics(i2 + 1, i3, i4, this.blockID);
+ 			} else if(i7 == 3) {
+-				world1.notifyBlocksOfNeighborChange(i2, i3, i4 - 1, this.blockID);
++				world1.applyPhysics(i2, i3, i4 - 1, this.blockID);
+ 			} else if(i7 == 4) {
+-				world1.notifyBlocksOfNeighborChange(i2, i3, i4 + 1, this.blockID);
++				world1.applyPhysics(i2, i3, i4 + 1, this.blockID);
+ 			} else {
+-				world1.notifyBlocksOfNeighborChange(i2, i3 - 1, i4, this.blockID);
++				world1.applyPhysics(i2, i3 - 1, i4, this.blockID);
+ 			}
+ 
+ 			world1.playSoundEffect((double)i2 + 0.5D, (double)i3 + 0.5D, (double)i4 + 0.5D, "random.click", 0.3F, 0.5F);

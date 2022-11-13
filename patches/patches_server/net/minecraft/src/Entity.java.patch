@@ -1,0 +1,11 @@
+--- a/net/minecraft/src/Entity.java
++++ b/net/minecraft/src/Entity.java
+@@ -632,7 +632,7 @@
+ 	public EntityItem entityDropItem(int itemID, int count, float velocity) {
+ 		EntityItem entityItem4 = new EntityItem(this.worldObj, this.posX, this.posY + (double)velocity, this.posZ, new ItemStack(itemID, count));
+ 		entityItem4.delayBeforeCanPickup = 10;
+-		this.worldObj.spawnEntityInWorld(entityItem4);
++		this.worldObj.addEntity(entityItem4);
+ 		return entityItem4;
+ 	}
+ 

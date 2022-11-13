@@ -1,0 +1,20 @@
+--- a/net/minecraft/src/BlockSand.java
++++ b/net/minecraft/src/BlockSand.java
+@@ -13,7 +13,7 @@
+ 		world1.scheduleBlockUpdate(i2, i3, i4, this.blockID);
+ 	}
+ 
+-	public void onNeighborBlockChange(World world, int x, int y, int z, int flag) {
++	public void doPhysics(World world, int x, int y, int z, int flag) {
+ 		world.scheduleBlockUpdate(x, y, z, this.blockID);
+ 	}
+ 
+@@ -29,7 +29,7 @@
+ 					entityFallingSand8.onUpdate();
+ 				}
+ 			} else {
+-				world.spawnEntityInWorld(entityFallingSand8);
++				world.addEntity(entityFallingSand8);
+ 			}
+ 		}
+ 

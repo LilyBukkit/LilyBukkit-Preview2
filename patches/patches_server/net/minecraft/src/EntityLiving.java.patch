@@ -1,0 +1,11 @@
+--- a/net/minecraft/src/EntityLiving.java
++++ b/net/minecraft/src/EntityLiving.java
+@@ -625,7 +625,7 @@
+ 	}
+ 
+ 	public boolean getCanSpawnHere() {
+-		return this.worldObj.checkIfAABBIsClear(this.boundingBox) && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).size() == 0 && !this.worldObj.getIsAnyLiquid(this.boundingBox);
++		return this.worldObj.containsEntity(this.boundingBox) && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).size() == 0 && !this.worldObj.getIsAnyLiquid(this.boundingBox);
+ 	}
+ 
+ 	protected void kill() {

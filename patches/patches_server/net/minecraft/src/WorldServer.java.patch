@@ -120,7 +120,7 @@
 +        return super.setBlockAndMetadataWithNotify(x, y, z, i4, i5);
 +    }
 +
-+    public boolean setBlockWithNotify(int x, int y, int z, int i4) {
++    public boolean setBlockWithNotify(int x, int y, int z, int id) {
 +        if (!this.disableSpawnProtection) {
 +            int i5 = x - this.spawnX;
 +            int i6 = z - this.spawnZ;
@@ -141,7 +141,7 @@
 +            }
 +        }
 +
-+        return super.setBlockWithNotify(x, y, z, i4);
++        return super.setBlockWithNotify(x, y, z, id);
 +    }
 +
 +    // LilyBukkit start

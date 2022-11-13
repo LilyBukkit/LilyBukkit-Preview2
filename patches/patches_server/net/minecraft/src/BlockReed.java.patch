@@ -1,0 +1,11 @@
+--- a/net/minecraft/src/BlockReed.java
++++ b/net/minecraft/src/BlockReed.java
+@@ -35,7 +35,7 @@
+ 		return i5 == this.blockID ? true : (i5 != Block.grass.blockID && i5 != Block.dirt.blockID ? false : (world1.getBlockMaterial(i2 - 1, i3 - 1, i4) == Material.water ? true : (world1.getBlockMaterial(i2 + 1, i3 - 1, i4) == Material.water ? true : (world1.getBlockMaterial(i2, i3 - 1, i4 - 1) == Material.water ? true : world1.getBlockMaterial(i2, i3 - 1, i4 + 1) == Material.water))));
+ 	}
+ 
+-	public void onNeighborBlockChange(World world, int x, int y, int z, int flag) {
++	public void doPhysics(World world, int x, int y, int z, int flag) {
+ 		this.fallInstantly(world, x, y, z);
+ 	}
+ 

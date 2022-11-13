@@ -1,0 +1,11 @@
+--- a/net/minecraft/src/ItemHoe.java
++++ b/net/minecraft/src/ItemHoe.java
+@@ -27,7 +27,7 @@
+ 					float f16 = world3.rand.nextFloat() * f13 + (1.0F - f13) * 0.5F;
+ 					EntityItem entityItem17 = new EntityItem(world3, (double)((float)i4 + f14), (double)((float)i5 + f15), (double)((float)i6 + f16), new ItemStack(Item.seeds));
+ 					entityItem17.delayBeforeCanPickup = 10;
+-					world3.spawnEntityInWorld(entityItem17);
++					world3.addEntity(entityItem17);
+ 				}
+ 			}
+ 

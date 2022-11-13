@@ -1,0 +1,13 @@
+--- a/net/minecraft/src/BlockStationary.java
++++ b/net/minecraft/src/BlockStationary.java
+@@ -12,8 +12,8 @@
+ 
+ 	}
+ 
+-	public void onNeighborBlockChange(World world, int x, int y, int z, int flag) {
+-		super.onNeighborBlockChange(world, x, y, z, flag);
++	public void doPhysics(World world, int x, int y, int z, int flag) {
++		super.doPhysics(world, x, y, z, flag);
+ 		if(world.getBlockId(x, y, z) == this.blockID) {
+ 			this.setNotStationary(world, x, y, z);
+ 		}

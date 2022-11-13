@@ -1,0 +1,11 @@
+--- a/net/minecraft/src/BlockFire.java
++++ b/net/minecraft/src/BlockFire.java
+@@ -140,7 +140,7 @@
+ 		return world1.isBlockNormalCube(i2, i3 - 1, i4) || this.canNeighborBurn(world1, i2, i3, i4);
+ 	}
+ 
+-	public void onNeighborBlockChange(World world, int x, int y, int z, int flag) {
++	public void doPhysics(World world, int x, int y, int z, int flag) {
+ 		if(!world.isBlockNormalCube(x, y - 1, z) && !this.canNeighborBurn(world, x, y, z)) {
+ 			world.setBlockWithNotify(x, y, z, 0);
+ 		}

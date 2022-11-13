@@ -1,0 +1,28 @@
+--- a/net/minecraft/src/BlockFurnace.java
++++ b/net/minecraft/src/BlockFurnace.java
+@@ -50,14 +50,14 @@
+ 	}
+ 
+ 	public boolean blockActivated(World world1, int i2, int i3, int i4, EntityPlayer entityPlayer5) {
+-		TileEntityFurnace tileEntityFurnace6 = (TileEntityFurnace)world1.getBlockTileEntity(i2, i3, i4);
++		TileEntityFurnace tileEntityFurnace6 = (TileEntityFurnace)world1.getTileEntity(i2, i3, i4);
+ 		entityPlayer5.displayGUIFurnace(tileEntityFurnace6);
+ 		return true;
+ 	}
+ 
+ 	public static void updateFurnaceBlockState(boolean isActive, World world, int x, int y, int z) {
+ 		int i5 = world.getBlockMetadata(x, y, z);
+-		TileEntity tileEntity6 = world.getBlockTileEntity(x, y, z);
++		TileEntity tileEntity6 = world.getTileEntity(x, y, z);
+ 		if(isActive) {
+ 			world.setBlockWithNotify(x, y, z, Block.stoneOvenActive.blockID);
+ 		} else {
+@@ -65,7 +65,7 @@
+ 		}
+ 
+ 		world.setBlockMetadataWithNotify(x, y, z, i5);
+-		world.setBlockTileEntity(x, y, z, tileEntity6);
++		world.setTileEntity(x, y, z, tileEntity6);
+ 	}
+ 
+ 	protected TileEntity getBlockEntity() {

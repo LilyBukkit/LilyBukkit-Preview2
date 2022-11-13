@@ -1,0 +1,20 @@
+--- a/net/minecraft/src/BlockLadder.java
++++ b/net/minecraft/src/BlockLadder.java
+@@ -62,7 +62,7 @@
+ 		world.setBlockMetadataWithNotify(x, y, z, i6);
+ 	}
+ 
+-	public void onNeighborBlockChange(World world, int x, int y, int z, int flag) {
++	public void doPhysics(World world, int x, int y, int z, int flag) {
+ 		int i6 = world.getBlockMetadata(x, y, z);
+ 		boolean z7 = false;
+ 		if(i6 == 2 && world.isBlockNormalCube(x, y, z + 1)) {
+@@ -86,7 +86,7 @@
+ 			world.setBlockWithNotify(x, y, z, 0);
+ 		}
+ 
+-		super.onNeighborBlockChange(world, x, y, z, flag);
++		super.doPhysics(world, x, y, z, flag);
+ 	}
+ 
+ 	public int quantityDropped(Random random1) {

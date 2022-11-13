@@ -1,0 +1,13 @@
+--- a/net/minecraft/src/BlockFlower.java
++++ b/net/minecraft/src/BlockFlower.java
+@@ -19,8 +19,8 @@
+ 		return id == Block.grass.blockID || id == Block.dirt.blockID || id == Block.tilledField.blockID;
+ 	}
+ 
+-	public void onNeighborBlockChange(World world, int x, int y, int z, int flag) {
+-		super.onNeighborBlockChange(world, x, y, z, flag);
++	public void doPhysics(World world, int x, int y, int z, int flag) {
++		super.doPhysics(world, x, y, z, flag);
+ 		this.dropIfNeighborPlaced(world, x, y, z);
+ 	}
+ 

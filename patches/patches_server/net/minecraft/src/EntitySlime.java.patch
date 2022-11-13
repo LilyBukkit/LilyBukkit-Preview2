@@ -1,0 +1,11 @@
+--- a/net/minecraft/src/EntitySlime.java
++++ b/net/minecraft/src/EntitySlime.java
+@@ -92,7 +92,7 @@
+ 				EntitySlime entitySlime4 = new EntitySlime(this.worldObj);
+ 				entitySlime4.setSlimeSize(this.size / 2);
+ 				entitySlime4.setLocationAndAngles(this.posX + (double)f2, this.posY + 0.5D, this.posZ + (double)f3, this.rand.nextFloat() * 360.0F, 0.0F);
+-				this.worldObj.spawnEntityInWorld(entitySlime4);
++				this.worldObj.addEntity(entitySlime4);
+ 			}
+ 		}
+ 

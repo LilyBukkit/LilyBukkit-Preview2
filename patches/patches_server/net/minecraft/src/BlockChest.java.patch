@@ -1,0 +1,53 @@
+--- a/net/minecraft/src/BlockChest.java
++++ b/net/minecraft/src/BlockChest.java
+@@ -40,7 +40,7 @@
+ 	}
+ 
+ 	public void onBlockRemoval(World world, int x, int y, int z) {
+-		TileEntityChest tileEntityChest5 = (TileEntityChest)world.getBlockTileEntity(x, y, z);
++		TileEntityChest tileEntityChest5 = (TileEntityChest)world.getTileEntity(x, y, z);
+ 
+ 		for(int i6 = 0; i6 < tileEntityChest5.getSizeInventory(); ++i6) {
+ 			ItemStack itemStack7 = tileEntityChest5.getStackInSlot(i6);
+@@ -61,7 +61,7 @@
+ 					entityItem12.motionX = (double)((float)this.rand.nextGaussian() * f13);
+ 					entityItem12.motionY = (double)((float)this.rand.nextGaussian() * f13 + 0.2F);
+ 					entityItem12.motionZ = (double)((float)this.rand.nextGaussian() * f13);
+-					world.spawnEntityInWorld(entityItem12);
++					world.addEntity(entityItem12);
+ 				}
+ 			}
+ 		}
+@@ -70,7 +70,7 @@
+ 	}
+ 
+ 	public boolean blockActivated(World world1, int i2, int i3, int i4, EntityPlayer entityPlayer5) {
+-		Object object6 = (TileEntityChest)world1.getBlockTileEntity(i2, i3, i4);
++		Object object6 = (TileEntityChest)world1.getTileEntity(i2, i3, i4);
+ 		if(world1.isBlockNormalCube(i2, i3 + 1, i4)) {
+ 			return true;
+ 		} else if(world1.getBlockId(i2 - 1, i3, i4) == this.blockID && world1.isBlockNormalCube(i2 - 1, i3 + 1, i4)) {
+@@ -83,19 +83,19 @@
+ 			return true;
+ 		} else {
+ 			if(world1.getBlockId(i2 - 1, i3, i4) == this.blockID) {
+-				object6 = new InventoryLargeChest("Large chest", (TileEntityChest)world1.getBlockTileEntity(i2 - 1, i3, i4), (IInventory)object6);
++				object6 = new InventoryLargeChest("Large chest", (TileEntityChest)world1.getTileEntity(i2 - 1, i3, i4), (IInventory)object6);
+ 			}
+ 
+ 			if(world1.getBlockId(i2 + 1, i3, i4) == this.blockID) {
+-				object6 = new InventoryLargeChest("Large chest", (IInventory)object6, (TileEntityChest)world1.getBlockTileEntity(i2 + 1, i3, i4));
++				object6 = new InventoryLargeChest("Large chest", (IInventory)object6, (TileEntityChest)world1.getTileEntity(i2 + 1, i3, i4));
+ 			}
+ 
+ 			if(world1.getBlockId(i2, i3, i4 - 1) == this.blockID) {
+-				object6 = new InventoryLargeChest("Large chest", (TileEntityChest)world1.getBlockTileEntity(i2, i3, i4 - 1), (IInventory)object6);
++				object6 = new InventoryLargeChest("Large chest", (TileEntityChest)world1.getTileEntity(i2, i3, i4 - 1), (IInventory)object6);
+ 			}
+ 
+ 			if(world1.getBlockId(i2, i3, i4 + 1) == this.blockID) {
+-				object6 = new InventoryLargeChest("Large chest", (IInventory)object6, (TileEntityChest)world1.getBlockTileEntity(i2, i3, i4 + 1));
++				object6 = new InventoryLargeChest("Large chest", (IInventory)object6, (TileEntityChest)world1.getTileEntity(i2, i3, i4 + 1));
+ 			}
+ 
+ 			entityPlayer5.displayGUIChest((IInventory)object6);

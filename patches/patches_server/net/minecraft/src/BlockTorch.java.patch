@@ -1,0 +1,11 @@
+--- a/net/minecraft/src/BlockTorch.java
++++ b/net/minecraft/src/BlockTorch.java
+@@ -73,7 +73,7 @@
+ 		this.checkIfAttachedToBlock(world1, i2, i3, i4);
+ 	}
+ 
+-	public void onNeighborBlockChange(World world, int x, int y, int z, int flag) {
++	public void doPhysics(World world, int x, int y, int z, int flag) {
+ 		if(this.checkIfAttachedToBlock(world, x, y, z)) {
+ 			int i6 = world.getBlockMetadata(x, y, z);
+ 			boolean z7 = false;

@@ -1,0 +1,11 @@
+--- a/net/minecraft/src/BlockJukeBox.java
++++ b/net/minecraft/src/BlockJukeBox.java
+@@ -29,7 +29,7 @@
+ 		double d12 = (double)(world.rand.nextFloat() * f7) + (double)(1.0F - f7) * 0.5D;
+ 		EntityItem entityItem14 = new EntityItem(world, (double)x + d8, (double)y + d10, (double)z + d12, new ItemStack(i6));
+ 		entityItem14.delayBeforeCanPickup = 10;
+-		world.spawnEntityInWorld(entityItem14);
++		world.addEntity(entityItem14);
+ 	}
+ 
+ 	public void dropBlockAsItemWithChance(World world, int x, int y, int z, int i5, float f6) {

@@ -1,0 +1,11 @@
+--- a/net/minecraft/src/EntitySkeleton.java
++++ b/net/minecraft/src/EntitySkeleton.java
+@@ -39,7 +39,7 @@
+ 				double d8 = entity1.posY - (double)0.2F - entityArrow7.posY;
+ 				float f10 = MathHelper.sqrt_double(d3 * d3 + d5 * d5) * 0.2F;
+ 				this.worldObj.playSoundAtEntity(this, "random.bow", 1.0F, 1.0F / (this.rand.nextFloat() * 0.4F + 0.8F));
+-				this.worldObj.spawnEntityInWorld(entityArrow7);
++				this.worldObj.addEntity(entityArrow7);
+ 				entityArrow7.setArrowHeading(d3, d8 + (double)f10, d5, 0.6F, 12.0F);
+ 				this.attackTime = 30;
+ 			}

@@ -1,0 +1,11 @@
+--- a/net/minecraft/src/BlockSnow.java
++++ b/net/minecraft/src/BlockSnow.java
+@@ -21,7 +21,7 @@
+ 		return world1.getBlockMaterial(i2, i3 - 1, i4).getIsSolid();
+ 	}
+ 
+-	public void onNeighborBlockChange(World world, int x, int y, int z, int flag) {
++	public void doPhysics(World world, int x, int y, int z, int flag) {
+ 		this.canSnowStay(world, x, y, z);
+ 	}
+ 

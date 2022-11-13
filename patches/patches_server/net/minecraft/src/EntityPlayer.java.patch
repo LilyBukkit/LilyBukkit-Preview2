@@ -1,0 +1,11 @@
+--- a/net/minecraft/src/EntityPlayer.java
++++ b/net/minecraft/src/EntityPlayer.java
+@@ -140,7 +140,7 @@
+ 	}
+ 
+ 	protected void joinEntityItemWithWorld(EntityItem entityItem) {
+-		this.worldObj.spawnEntityInWorld(entityItem);
++		this.worldObj.addEntity(entityItem);
+ 	}
+ 
+ 	public float getCurrentPlayerStrVsBlock(Block block) {

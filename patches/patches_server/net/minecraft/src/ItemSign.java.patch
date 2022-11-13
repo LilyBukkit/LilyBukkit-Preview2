@@ -1,0 +1,11 @@
+--- a/net/minecraft/src/ItemSign.java
++++ b/net/minecraft/src/ItemSign.java
+@@ -43,7 +43,7 @@
+ 				}
+ 
+ 				--itemStack1.stackSize;
+-				entityPlayer2.displayGUIEditSign((TileEntitySign)world3.getBlockTileEntity(i4, i5, i6));
++				entityPlayer2.displayGUIEditSign((TileEntitySign)world3.getTileEntity(i4, i5, i6));
+ 				return true;
+ 			}
+ 		}

@@ -1,0 +1,11 @@
+--- a/net/minecraft/src/BlockMinecartTrack.java
++++ b/net/minecraft/src/BlockMinecartTrack.java
+@@ -48,7 +48,7 @@
+ 		this.refreshTrackShape(world1, i2, i3, i4);
+ 	}
+ 
+-	public void onNeighborBlockChange(World world, int x, int y, int z, int flag) {
++	public void doPhysics(World world, int x, int y, int z, int flag) {
+ 		int i6 = world.getBlockMetadata(x, y, z);
+ 		boolean z7 = false;
+ 		if(!world.isBlockNormalCube(x, y - 1, z)) {

@@ -1,0 +1,11 @@
+--- a/net/minecraft/src/BlockStep.java
++++ b/net/minecraft/src/BlockStep.java
+@@ -23,7 +23,7 @@
+ 		return this.blockType;
+ 	}
+ 
+-	public void onNeighborBlockChange(World world, int x, int y, int z, int flag) {
++	public void doPhysics(World world, int x, int y, int z, int flag) {
+ 		if(this == Block.stairSingle) {
+ 			;
+ 		}

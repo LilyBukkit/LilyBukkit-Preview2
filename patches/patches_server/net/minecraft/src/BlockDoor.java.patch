@@ -1,0 +1,20 @@
+--- a/net/minecraft/src/BlockDoor.java
++++ b/net/minecraft/src/BlockDoor.java
+@@ -112,7 +112,7 @@
+ 		}
+ 	}
+ 
+-	public void onNeighborBlockChange(World world, int x, int y, int z, int flag) {
++	public void doPhysics(World world, int x, int y, int z, int flag) {
+ 		int i6 = world.getBlockMetadata(x, y, z);
+ 		if((i6 & 8) != 0) {
+ 			if(world.getBlockId(x, y - 1, z) != this.blockID) {
+@@ -120,7 +120,7 @@
+ 			}
+ 
+ 			if(flag > 0 && Block.canBlockGrass[flag].canProvidePower()) {
+-				this.onNeighborBlockChange(world, x, y - 1, z, flag);
++				this.doPhysics(world, x, y - 1, z, flag);
+ 			}
+ 		} else {
+ 			boolean z7 = false;

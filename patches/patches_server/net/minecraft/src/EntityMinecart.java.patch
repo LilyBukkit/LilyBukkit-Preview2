@@ -1,0 +1,11 @@
+--- a/net/minecraft/src/EntityMinecart.java
++++ b/net/minecraft/src/EntityMinecart.java
+@@ -103,7 +103,7 @@
+ 					entityItem7.motionX = (double)((float)this.rand.nextGaussian() * f8);
+ 					entityItem7.motionY = (double)((float)this.rand.nextGaussian() * f8 + 0.2F);
+ 					entityItem7.motionZ = (double)((float)this.rand.nextGaussian() * f8);
+-					this.worldObj.spawnEntityInWorld(entityItem7);
++					this.worldObj.addEntity(entityItem7);
+ 				}
+ 			}
+ 		}

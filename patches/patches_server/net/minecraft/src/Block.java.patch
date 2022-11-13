@@ -1,0 +1,20 @@
+--- a/net/minecraft/src/Block.java
++++ b/net/minecraft/src/Block.java
+@@ -251,7 +251,7 @@
+ 	public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int flag) {
+ 	}
+ 
+-	public void onNeighborBlockChange(World world, int x, int y, int z, int flag) {
++	public void doPhysics(World world, int x, int y, int z, int flag) {
+ 	}
+ 
+ 	public int tickRate() {
+@@ -290,7 +290,7 @@
+ 					if(i9 > 0) {
+ 						EntityItem entityItem11 = new EntityItem(world, (double)x + (double)(world.rand.nextFloat() * 0.7F) + (double)0.15F, (double)y + (double)(world.rand.nextFloat() * 0.7F) + (double)0.15F, (double)z + (double)(world.rand.nextFloat() * 0.7F) + (double)0.15F, new ItemStack(i9));
+ 						entityItem11.delayBeforeCanPickup = 10;
+-						world.spawnEntityInWorld(entityItem11);
++						world.addEntity(entityItem11);
+ 					}
+ 				}
+ 			}

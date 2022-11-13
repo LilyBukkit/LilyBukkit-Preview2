@@ -1,0 +1,11 @@
+--- a/net/minecraft/src/ifC.java
++++ b/net/minecraft/src/ifC.java
+@@ -22,7 +22,7 @@
+ 		return this.a;
+ 	}
+ 
+-	public void onNeighborBlockChange(World world, int x, int y, int z, int flag) {
++	public void doPhysics(World world, int x, int y, int z, int flag) {
+ 		if(this == Block.stairSingle) {
+ 			;
+ 		}

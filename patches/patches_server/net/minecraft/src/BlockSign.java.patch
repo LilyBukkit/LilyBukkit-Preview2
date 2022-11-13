@@ -1,0 +1,19 @@
+--- a/net/minecraft/src/BlockSign.java
++++ b/net/minecraft/src/BlockSign.java
+@@ -68,7 +68,7 @@
+ 		return Item.sign.shiftedIndex;
+ 	}
+ 
+-	public void onNeighborBlockChange(World world, int x, int y, int z, int flag) {
++	public void doPhysics(World world, int x, int y, int z, int flag) {
+ 		boolean z6 = false;
+ 		if(this.isFreestanding) {
+ 			if(!world.getBlockMaterial(x, y - 1, z).isSolid()) {
+@@ -99,6 +99,6 @@
+ 			world.setBlockWithNotify(x, y, z, 0);
+ 		}
+ 
+-		super.onNeighborBlockChange(world, x, y, z, flag);
++		super.doPhysics(world, x, y, z, flag);
+ 	}
+ }

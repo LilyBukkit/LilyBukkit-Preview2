@@ -1,0 +1,83 @@
+--- a/net/minecraft/src/BlockRedstoneWire.java
++++ b/net/minecraft/src/BlockRedstoneWire.java
+@@ -115,13 +115,13 @@
+ 			}
+ 
+ 			if(i5 == 0 || i6 == 0) {
+-				world.notifyBlocksOfNeighborChange(x, y, z, this.blockID);
+-				world.notifyBlocksOfNeighborChange(x - 1, y, z, this.blockID);
+-				world.notifyBlocksOfNeighborChange(x + 1, y, z, this.blockID);
+-				world.notifyBlocksOfNeighborChange(x, y, z - 1, this.blockID);
+-				world.notifyBlocksOfNeighborChange(x, y, z + 1, this.blockID);
+-				world.notifyBlocksOfNeighborChange(x, y - 1, z, this.blockID);
+-				world.notifyBlocksOfNeighborChange(x, y + 1, z, this.blockID);
++				world.applyPhysics(x, y, z, this.blockID);
++				world.applyPhysics(x - 1, y, z, this.blockID);
++				world.applyPhysics(x + 1, y, z, this.blockID);
++				world.applyPhysics(x, y, z - 1, this.blockID);
++				world.applyPhysics(x, y, z + 1, this.blockID);
++				world.applyPhysics(x, y - 1, z, this.blockID);
++				world.applyPhysics(x, y + 1, z, this.blockID);
+ 			}
+ 		}
+ 
+@@ -129,21 +129,21 @@
+ 
+ 	private void notifyWireNeighborsOfNeighborChange(World world, int x, int y, int z) {
+ 		if(world.getBlockId(x, y, z) == this.blockID) {
+-			world.notifyBlocksOfNeighborChange(x, y, z, this.blockID);
+-			world.notifyBlocksOfNeighborChange(x - 1, y, z, this.blockID);
+-			world.notifyBlocksOfNeighborChange(x + 1, y, z, this.blockID);
+-			world.notifyBlocksOfNeighborChange(x, y, z - 1, this.blockID);
+-			world.notifyBlocksOfNeighborChange(x, y, z + 1, this.blockID);
+-			world.notifyBlocksOfNeighborChange(x, y - 1, z, this.blockID);
+-			world.notifyBlocksOfNeighborChange(x, y + 1, z, this.blockID);
++			world.applyPhysics(x, y, z, this.blockID);
++			world.applyPhysics(x - 1, y, z, this.blockID);
++			world.applyPhysics(x + 1, y, z, this.blockID);
++			world.applyPhysics(x, y, z - 1, this.blockID);
++			world.applyPhysics(x, y, z + 1, this.blockID);
++			world.applyPhysics(x, y - 1, z, this.blockID);
++			world.applyPhysics(x, y + 1, z, this.blockID);
+ 		}
+ 	}
+ 
+ 	public void onBlockAdded(World world1, int i2, int i3, int i4) {
+ 		super.onBlockAdded(world1, i2, i3, i4);
+ 		this.updateAndPropagateCurrentStrength(world1, i2, i3, i4);
+-		world1.notifyBlocksOfNeighborChange(i2, i3 + 1, i4, this.blockID);
+-		world1.notifyBlocksOfNeighborChange(i2, i3 - 1, i4, this.blockID);
++		world1.applyPhysics(i2, i3 + 1, i4, this.blockID);
++		world1.applyPhysics(i2, i3 - 1, i4, this.blockID);
+ 		this.notifyWireNeighborsOfNeighborChange(world1, i2 - 1, i3, i4);
+ 		this.notifyWireNeighborsOfNeighborChange(world1, i2 + 1, i3, i4);
+ 		this.notifyWireNeighborsOfNeighborChange(world1, i2, i3, i4 - 1);
+@@ -176,8 +176,8 @@
+ 
+ 	public void onBlockRemoval(World world, int x, int y, int z) {
+ 		super.onBlockRemoval(world, x, y, z);
+-		world.notifyBlocksOfNeighborChange(x, y + 1, z, this.blockID);
+-		world.notifyBlocksOfNeighborChange(x, y - 1, z, this.blockID);
++		world.applyPhysics(x, y + 1, z, this.blockID);
++		world.applyPhysics(x, y - 1, z, this.blockID);
+ 		this.updateAndPropagateCurrentStrength(world, x, y, z);
+ 		this.notifyWireNeighborsOfNeighborChange(world, x - 1, y, z);
+ 		this.notifyWireNeighborsOfNeighborChange(world, x + 1, y, z);
+@@ -218,7 +218,7 @@
+ 		}
+ 	}
+ 
+-	public void onNeighborBlockChange(World world, int x, int y, int z, int flag) {
++	public void doPhysics(World world, int x, int y, int z, int flag) {
+ 		int i6 = world.getBlockMetadata(x, y, z);
+ 		boolean z7 = this.canPlaceBlockAt(world, x, y, z);
+ 		if(!z7) {
+@@ -228,7 +228,7 @@
+ 			this.updateAndPropagateCurrentStrength(world, x, y, z);
+ 		}
+ 
+-		super.onNeighborBlockChange(world, x, y, z, flag);
++		super.doPhysics(world, x, y, z, flag);
+ 	}
+ 
+ 	public int idDropped(int i1, Random random2) {

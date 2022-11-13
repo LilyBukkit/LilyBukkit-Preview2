@@ -1,0 +1,11 @@
+--- a/net/minecraft/src/BlockContainer.java
++++ b/net/minecraft/src/BlockContainer.java
+@@ -11,7 +11,7 @@
+ 
+ 	public void onBlockAdded(World world1, int i2, int i3, int i4) {
+ 		super.onBlockAdded(world1, i2, i3, i4);
+-		world1.setBlockTileEntity(i2, i3, i4, this.getBlockEntity());
++		world1.setTileEntity(i2, i3, i4, this.getBlockEntity());
+ 	}
+ 
+ 	public void onBlockRemoval(World world, int x, int y, int z) {

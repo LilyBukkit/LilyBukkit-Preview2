@@ -116,7 +116,7 @@ public class LBPainting extends LBEntity implements Painting {
                 //Exiting is art is invalid
                 throw new IllegalArgumentException("Wrong art " + art.name() + " specified for entity " + this.entity.entityID);
         }
-        this.world.getWorldServer().markBlockNeedsUpdate((int) this.entity.posX, (int) this.entity.posY, (int) this.entity.posZ);
+        this.world.getWorldServer().notify((int) this.entity.posX, (int) this.entity.posY, (int) this.entity.posZ);
         return true;
     }
 
@@ -134,7 +134,7 @@ public class LBPainting extends LBEntity implements Painting {
     @Override
     public void setFacingDirection(BlockFace blockFace) {
         this.entity.setDirection(LBBlock.convertBlockFaceToNotch(blockFace));
-        this.world.getWorldServer().markBlockNeedsUpdate((int) this.entity.posX, (int) this.entity.posY, (int) this.entity.posZ);
+        this.world.getWorldServer().notify((int) this.entity.posX, (int) this.entity.posY, (int) this.entity.posZ);
     }
 
     @Override

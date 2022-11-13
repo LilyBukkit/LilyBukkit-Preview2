@@ -1,0 +1,29 @@
+--- a/net/minecraft/src/BlockStairs.java
++++ b/net/minecraft/src/BlockStairs.java
+@@ -53,7 +53,7 @@
+ 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+ 	}
+ 
+-	public void onNeighborBlockChange(World world, int x, int y, int z, int flag) {
++	public void doPhysics(World world, int x, int y, int z, int flag) {
+ 		if(world.getBlockMaterial(x, y + 1, z).isSolid()) {
+ 			world.setBlockWithNotify(x, y, z, this.modelBlock.blockID);
+ 		} else {
+@@ -68,7 +68,7 @@
+ 			this.g(world, x, y + 1, z + 1);
+ 		}
+ 
+-		this.modelBlock.onNeighborBlockChange(world, x, y, z, flag);
++		this.modelBlock.doPhysics(world, x, y, z, flag);
+ 	}
+ 
+ 	private void g(World world, int x, int y, int z) {
+@@ -187,7 +187,7 @@
+ 	}
+ 
+ 	public void onBlockAdded(World world1, int i2, int i3, int i4) {
+-		this.onNeighborBlockChange(world1, i2, i3, i4, 0);
++		this.doPhysics(world1, i2, i3, i4, 0);
+ 		this.modelBlock.onBlockAdded(world1, i2, i3, i4);
+ 	}
+ 

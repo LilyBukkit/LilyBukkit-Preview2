@@ -1,0 +1,11 @@
+--- a/net/minecraft/src/ItemPainting.java
++++ b/net/minecraft/src/ItemPainting.java
+@@ -27,7 +27,7 @@
+ 
+ 			EntityPainting entityPainting9 = new EntityPainting(world3, i4, i5, i6, b8);
+ 			if(entityPainting9.onValidSurface()) {
+-				world3.spawnEntityInWorld(entityPainting9);
++				world3.addEntity(entityPainting9);
+ 				--itemStack1.stackSize;
+ 			}
+ 

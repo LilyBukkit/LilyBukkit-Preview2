@@ -1,0 +1,11 @@
+--- a/net/minecraft/src/BlockFluid.java
++++ b/net/minecraft/src/BlockFluid.java
+@@ -177,7 +177,7 @@
+ 		this.checkForHarden(world1, i2, i3, i4);
+ 	}
+ 
+-	public void onNeighborBlockChange(World world, int x, int y, int z, int flag) {
++	public void doPhysics(World world, int x, int y, int z, int flag) {
+ 		this.checkForHarden(world, x, y, z);
+ 	}
+ 

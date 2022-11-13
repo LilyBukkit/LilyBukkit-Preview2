@@ -1,0 +1,26 @@
+--- a/net/minecraft/src/BlockTNT.java
++++ b/net/minecraft/src/BlockTNT.java
+@@ -11,7 +11,7 @@
+ 		return i1 == 0 ? this.blockIndexInTexture + 2 : (i1 == 1 ? this.blockIndexInTexture + 1 : this.blockIndexInTexture);
+ 	}
+ 
+-	public void onNeighborBlockChange(World world, int x, int y, int z, int flag) {
++	public void doPhysics(World world, int x, int y, int z, int flag) {
+ 		if(flag > 0 && Block.canBlockGrass[flag].canProvidePower() && world.isBlockIndirectlyGettingPowered(x, y, z)) {
+ 			this.onBlockDestroyedByPlayer(world, x, y, z, 0);
+ 			world.setBlockWithNotify(x, y, z, 0);
+@@ -26,12 +26,12 @@
+ 	public void onBlockDestroyedByExplosion(World world1, int i2, int i3, int i4) {
+ 		EntityTNTPrimed entityTNTPrimed5 = new EntityTNTPrimed(world1, (float)i2 + 0.5F, (float)i3 + 0.5F, (float)i4 + 0.5F);
+ 		entityTNTPrimed5.fuse = world1.rand.nextInt(entityTNTPrimed5.fuse / 4) + entityTNTPrimed5.fuse / 8;
+-		world1.spawnEntityInWorld(entityTNTPrimed5);
++		world1.addEntity(entityTNTPrimed5);
+ 	}
+ 
+ 	public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int flag) {
+ 		EntityTNTPrimed entityTNTPrimed6 = new EntityTNTPrimed(world, (float)x + 0.5F, (float)y + 0.5F, (float)z + 0.5F);
+-		world.spawnEntityInWorld(entityTNTPrimed6);
++		world.addEntity(entityTNTPrimed6);
+ 		world.playSoundAtEntity(entityTNTPrimed6, "random.fuse", 1.0F, 1.0F);
+ 	}
+ }

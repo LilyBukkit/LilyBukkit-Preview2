@@ -1,0 +1,43 @@
+--- a/net/minecraft/src/BlockPressurePlate.java
++++ b/net/minecraft/src/BlockPressurePlate.java
+@@ -33,7 +33,7 @@
+ 	public void onBlockAdded(World world1, int i2, int i3, int i4) {
+ 	}
+ 
+-	public void onNeighborBlockChange(World world, int x, int y, int z, int flag) {
++	public void doPhysics(World world, int x, int y, int z, int flag) {
+ 		boolean z6 = false;
+ 		if(!world.isBlockNormalCube(x, y - 1, z)) {
+ 			z6 = true;
+@@ -81,16 +81,16 @@
+ 
+ 		if(z6 && !z5) {
+ 			world.setBlockMetadataWithNotify(x, y, z, 1);
+-			world.notifyBlocksOfNeighborChange(x, y, z, this.blockID);
+-			world.notifyBlocksOfNeighborChange(x, y - 1, z, this.blockID);
++			world.applyPhysics(x, y, z, this.blockID);
++			world.applyPhysics(x, y - 1, z, this.blockID);
+ 			world.markBlocksDirty(x, y, z, x, y, z);
+ 			world.playSoundEffect((double)x + 0.5D, (double)y + 0.1D, (double)z + 0.5D, "random.click", 0.3F, 0.6F);
+ 		}
+ 
+ 		if(!z6 && z5) {
+ 			world.setBlockMetadataWithNotify(x, y, z, 0);
+-			world.notifyBlocksOfNeighborChange(x, y, z, this.blockID);
+-			world.notifyBlocksOfNeighborChange(x, y - 1, z, this.blockID);
++			world.applyPhysics(x, y, z, this.blockID);
++			world.applyPhysics(x, y - 1, z, this.blockID);
+ 			world.markBlocksDirty(x, y, z, x, y, z);
+ 			world.playSoundEffect((double)x + 0.5D, (double)y + 0.1D, (double)z + 0.5D, "random.click", 0.3F, 0.5F);
+ 		}
+@@ -104,8 +104,8 @@
+ 	public void onBlockRemoval(World world, int x, int y, int z) {
+ 		int i5 = world.getBlockMetadata(x, y, z);
+ 		if(i5 > 0) {
+-			world.notifyBlocksOfNeighborChange(x, y, z, this.blockID);
+-			world.notifyBlocksOfNeighborChange(x, y - 1, z, this.blockID);
++			world.applyPhysics(x, y, z, this.blockID);
++			world.applyPhysics(x, y - 1, z, this.blockID);
+ 		}
+ 
+ 		super.onBlockRemoval(world, x, y, z);

@@ -1,0 +1,50 @@
+--- a/net/minecraft/src/BlockRedstoneTorch.java
++++ b/net/minecraft/src/BlockRedstoneTorch.java
+@@ -44,24 +44,24 @@
+ 		}
+ 
+ 		if(this.torchActive) {
+-			world1.notifyBlocksOfNeighborChange(i2, i3 - 1, i4, this.blockID);
+-			world1.notifyBlocksOfNeighborChange(i2, i3 + 1, i4, this.blockID);
+-			world1.notifyBlocksOfNeighborChange(i2 - 1, i3, i4, this.blockID);
+-			world1.notifyBlocksOfNeighborChange(i2 + 1, i3, i4, this.blockID);
+-			world1.notifyBlocksOfNeighborChange(i2, i3, i4 - 1, this.blockID);
+-			world1.notifyBlocksOfNeighborChange(i2, i3, i4 + 1, this.blockID);
++			world1.applyPhysics(i2, i3 - 1, i4, this.blockID);
++			world1.applyPhysics(i2, i3 + 1, i4, this.blockID);
++			world1.applyPhysics(i2 - 1, i3, i4, this.blockID);
++			world1.applyPhysics(i2 + 1, i3, i4, this.blockID);
++			world1.applyPhysics(i2, i3, i4 - 1, this.blockID);
++			world1.applyPhysics(i2, i3, i4 + 1, this.blockID);
+ 		}
+ 
+ 	}
+ 
+ 	public void onBlockRemoval(World world, int x, int y, int z) {
+ 		if(this.torchActive) {
+-			world.notifyBlocksOfNeighborChange(x, y - 1, z, this.blockID);
+-			world.notifyBlocksOfNeighborChange(x, y + 1, z, this.blockID);
+-			world.notifyBlocksOfNeighborChange(x - 1, y, z, this.blockID);
+-			world.notifyBlocksOfNeighborChange(x + 1, y, z, this.blockID);
+-			world.notifyBlocksOfNeighborChange(x, y, z - 1, this.blockID);
+-			world.notifyBlocksOfNeighborChange(x, y, z + 1, this.blockID);
++			world.applyPhysics(x, y - 1, z, this.blockID);
++			world.applyPhysics(x, y + 1, z, this.blockID);
++			world.applyPhysics(x - 1, y, z, this.blockID);
++			world.applyPhysics(x + 1, y, z, this.blockID);
++			world.applyPhysics(x, y, z - 1, this.blockID);
++			world.applyPhysics(x, y, z + 1, this.blockID);
+ 		}
+ 
+ 	}
+@@ -107,8 +107,8 @@
+ 
+ 	}
+ 
+-	public void onNeighborBlockChange(World world, int x, int y, int z, int flag) {
+-		super.onNeighborBlockChange(world, x, y, z, flag);
++	public void doPhysics(World world, int x, int y, int z, int flag) {
++		super.doPhysics(world, x, y, z, flag);
+ 		world.scheduleBlockUpdate(x, y, z, this.blockID);
+ 	}
+ 

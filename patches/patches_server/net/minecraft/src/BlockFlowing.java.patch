@@ -1,0 +1,20 @@
+--- a/net/minecraft/src/BlockFlowing.java
++++ b/net/minecraft/src/BlockFlowing.java
+@@ -15,7 +15,7 @@
+ 		int i5 = world.getBlockMetadata(x, y, z);
+ 		world.setBlockAndMetadata(x, y, z, this.blockID + 1, i5);
+ 		world.markBlocksDirty(x, y, z, x, y, z);
+-		world.markBlockNeedsUpdate(x, y, z);
++		world.notify(x, y, z);
+ 	}
+ 
+ 	public void updateTick(World world1, int i2, int i3, int i4, Random random5) {
+@@ -63,7 +63,7 @@
+ 				} else {
+ 					world1.setBlockMetadataWithNotify(i2, i3, i4, i9);
+ 					world1.scheduleBlockUpdate(i2, i3, i4, this.blockID);
+-					world1.notifyBlocksOfNeighborChange(i2, i3, i4, this.blockID);
++					world1.applyPhysics(i2, i3, i4, this.blockID);
+ 				}
+ 			} else if(z7) {
+ 				this.updateFlow(world1, i2, i3, i4);

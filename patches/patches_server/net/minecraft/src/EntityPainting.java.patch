@@ -1,0 +1,20 @@
+--- a/net/minecraft/src/EntityPainting.java
++++ b/net/minecraft/src/EntityPainting.java
+@@ -109,7 +109,7 @@
+ 		if(this.tickCounter1++ == 100 && !this.onValidSurface()) {
+ 			this.tickCounter1 = 0;
+ 			this.setEntityDead();
+-			this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, new ItemStack(Item.painting)));
++			this.worldObj.addEntity(new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, new ItemStack(Item.painting)));
+ 		}
+ 
+ 	}
+@@ -175,7 +175,7 @@
+ 
+ 	public boolean attackEntityFrom(Entity entity1, int i2) {
+ 		this.setEntityDead();
+-		this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, new ItemStack(Item.painting)));
++		this.worldObj.addEntity(new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, new ItemStack(Item.painting)));
+ 		return true;
+ 	}
+ 

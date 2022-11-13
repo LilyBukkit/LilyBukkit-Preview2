@@ -1,0 +1,11 @@
+--- a/net/minecraft/src/BlockSponge.java
++++ b/net/minecraft/src/BlockSponge.java
+@@ -27,7 +27,7 @@
+ 		for(int i6 = x - b5; i6 <= x + b5; ++i6) {
+ 			for(int i7 = y - b5; i7 <= y + b5; ++i7) {
+ 				for(int i8 = z - b5; i8 <= z + b5; ++i8) {
+-					world.notifyBlocksOfNeighborChange(i6, i7, i8, world.getBlockId(i6, i7, i8));
++					world.applyPhysics(i6, i7, i8, world.getBlockId(i6, i7, i8));
+ 				}
+ 			}
+ 		}
