@@ -32,7 +32,7 @@ public class LBBlock implements Block {
      */
     @Override
     public byte getData() {
-        return (byte) this.world.getWorldServer().getBlockMetadata(this.posX, this.posY, this.posZ);
+        return (byte) this.world.getWorldServer().getData(this.posX, this.posY, this.posZ);
     }
 
     /**
@@ -201,7 +201,7 @@ public class LBBlock implements Block {
     @Override
     public void setData(byte data, boolean applyPhysics) {
         if (applyPhysics)
-            this.world.getWorldServer().setBlockMetadataWithNotify(this.getX(), this.getY(), this.getZ(), data);
+            this.world.getWorldServer().setData(this.getX(), this.getY(), this.getZ(), data);
         else this.world.getWorldServer().setBlockMetadata(this.getX(), this.getY(), this.getZ(), data);
     }
 
@@ -229,7 +229,7 @@ public class LBBlock implements Block {
     @Override
     public boolean setTypeId(int type, boolean applyPhysics) {
         if (applyPhysics)
-            return this.world.getWorldServer().setBlockWithNotify(this.getX(), this.getY(), this.getZ(), type);
+            return this.world.getWorldServer().setTypeId(this.getX(), this.getY(), this.getZ(), type);
         else return this.world.getWorldServer().setBlock(this.getX(), this.getY(), this.getZ(), type);
     }
 
@@ -368,7 +368,7 @@ public class LBBlock implements Block {
     public int getBlockPower() {
         //As it's the only block that stores the power
         if (this.block instanceof BlockRedstoneWire) {
-            return this.world.getWorldServer().getBlockMetadata(this.getX(), this.getY(), this.getZ());
+            return this.world.getWorldServer().getData(this.getX(), this.getY(), this.getZ());
         }
         return 0;
     }
