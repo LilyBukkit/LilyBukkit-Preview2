@@ -3,7 +3,7 @@ package org.bukkit.craftbukkit.generator;
 import net.minecraft.src.Chunk;
 import net.minecraft.src.IChunkProvider;
 import net.minecraft.src.IProgressUpdate;
-import org.bukkit.World;
+import net.minecraft.src.World;
 
 import java.util.Random;
 
@@ -45,7 +45,7 @@ public class NormalChunkGenerator extends InternalChunkGenerator{
     }
 
     @Override
-    public byte[] generate(World world, Random random, int i, int i1) {
+    public byte[] generate(org.bukkit.World world, Random random, int i, int i1) {
         throw new UnsupportedOperationException("One of the plugins called deprecated Chunk Generation API");
     }
 }

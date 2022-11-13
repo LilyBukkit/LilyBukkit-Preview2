@@ -1,12 +1,13 @@
 --- a/net/minecraft/src/WorldServer.java
 +++ b/net/minecraft/src/WorldServer.java
-@@ -1,66 +1,134 @@
+@@ -1,66 +1,136 @@
  package net.minecraft.src;
  
 +import org.bukkit.BlockChangeDelegate;
 +import org.bukkit.craftbukkit.generator.CustomChunkGenerator;
 +import org.bukkit.craftbukkit.generator.InternalChunkGenerator;
 +import org.bukkit.craftbukkit.generator.NormalChunkGenerator;
++import org.bukkit.generator.ChunkGenerator;
 +
  import java.io.File;
  
@@ -76,8 +77,9 @@
 +    public boolean disableSpawnProtection = false;
 +    public boolean levelSaving;
 +
-+    public WorldServer(File file1, String string2) {
-+        super(file1, string2);
++    // LilyBukkit start - change signature
++    public WorldServer(File file1, String string2, ChunkGenerator gen) {
++        super(file1, string2, gen);
 +    }
 +
 +    protected IChunkProvider getChunkProvider(File saveDir) {
