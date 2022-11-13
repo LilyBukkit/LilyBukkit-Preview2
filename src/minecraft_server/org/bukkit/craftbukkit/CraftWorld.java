@@ -30,6 +30,8 @@ import org.bukkit.ChunkSnapshot;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.TreeType;
+import org.bukkit.World;
+import org.bukkit.World.Environment;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.entity.CraftEntity;
 import org.bukkit.entity.Arrow;
@@ -60,7 +62,6 @@ import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
-import ru.vladthemountain.lilybukkit.core.LBWorld;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +70,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
 
 @Deprecated
-public class CraftWorld extends LBWorld {
+public class CraftWorld implements World {
     private final WorldServer world;
     private Environment environment;
     private final CraftServer server = (CraftServer) Bukkit.getServer();
